@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel · Elías Reyes y su Proyecto 7</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --sol:#FFC93C; --sol-suave:#FFE39B; --rosa:#E0457B; --rosa-osc:#A82E58;
+      --turquesa:#00A9A5; --turquesa-osc:#067572; --cacao:#3D2400;
+      --cacao-suave:#6B4423; --hueso:#FFFAF0; --crema:#FFF3D6;
+      --linea:rgba(61,36,0,0.14);
+      --display:'Fraunces',serif; --cuerpo:'Work Sans',sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--hueso);color:var(--cacao);font-family:var(--cuerpo);line-height:1.6;}
+    header{background:linear-gradient(150deg,var(--cacao),#5a3510);color:var(--hueso);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    header h1{font-family:var(--display);font-size:1.5rem;}
+    header .sub{color:var(--sol-suave);font-size:0.9rem;margin-top:2px;}
+    header a{color:var(--sol);font-weight:700;font-size:0.9rem;}
+    .stats{display:flex;gap:14px;padding:20px 32px;flex-wrap:wrap;}
+    .stat{background:#fff;border:2px solid var(--cacao);border-radius:14px;padding:14px 22px;min-width:150px;}
+    .stat .num{font-family:var(--display);font-size:1.8rem;font-weight:700;}
+    .stat .lbl{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--cacao-suave);font-weight:700;}
+    .contenido{padding:0 32px 40px;display:grid;gap:24px;grid-template-columns:1.4fr 1fr;align-items:start;}
+    .panel{background:#fff;border:2px solid var(--cacao);border-radius:16px;overflow:hidden;}
+    .panel h2{font-size:1.05rem;padding:14px 18px;border-bottom:2px solid var(--cacao);background:var(--crema);display:flex;justify-content:space-between;align-items:center;}
+    .panel h2 .count{background:var(--cacao);color:var(--sol);border-radius:50px;padding:2px 12px;font-size:0.8rem;}
+    .item{border-bottom:1px solid var(--linea);padding:14px 18px;}
+    .item:last-child{border-bottom:none;}
+    .item.no-leido{background:var(--sol-suave);}
+    .item .cab{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+    .item .nombre{font-weight:700;font-size:1rem;}
+    .item .folio{font-size:0.72rem;color:var(--cacao-suave);font-weight:600;letter-spacing:0.04em;}
+    .item .tipo{display:inline-block;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;background:var(--rosa);color:#fff;border-radius:50px;padding:2px 10px;}
+    .item .tipo.horas{background:var(--turquesa);}
+    .item .tipo.evento{background:var(--cacao-suave);}
+    .item .tipo.chat{background:#25D366;color:#1b2f1b;}
+    .item .tipo.serenata{background:var(--rosa-osc);}
+    .item .detalles{margin-top:8px;font-size:0.85rem;color:var(--cacao-suave);}
+    .item .detalles b{color:var(--cacao);}
+    .item .meta{margin-top:8px;font-size:0.78rem;color:var(--cacao-suave);}
+    .item .acciones{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;}
+    .btn{border:2px solid var(--cacao);border-radius:50px;padding:6px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;background:transparent;color:var(--cacao);transition:all .2s;font-family:var(--cuerpo);}
+    .btn:hover{background:var(--cacao);color:var(--hueso);}
+    .btn.wa{background:#25D366;border-color:#128C7E;color:#fff;}
+    .btn.wa:hover{background:#1fb957;}
+    .vacio{text-align:center;color:var(--cacao-suave);padding:30px 18px;font-size:0.9rem;}
+    .chat{max-height:420px;overflow:auto;}
+    .chat .c-item{padding:12px 18px;border-bottom:1px solid var(--linea);cursor:pointer;}
+    .chat .c-item:hover{background:var(--crema);}
+    .chat .c-item .fecha{font-size:0.75rem;color:var(--cacao-suave);}
+    .modal-fondo{display:none;position:fixed;inset:0;background:rgba(61,36,0,0.55);z-index:50;align-items:center;justify-content:center;padding:20px;}
+    .modal-fondo.abierto{display:flex;}
+    .modal{background:#fff;border:3px solid var(--cacao);border-radius:16px;max-width:560px;width:100%;max-height:80vh;overflow:auto;display:flex;flex-direction:column;}
+    .modal header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;}
+    .modal header h3{font-family:var(--display);font-size:1.15rem;}
+    .modal .cerrar{background:var(--sol);border:none;border-radius:50%;width:32px;height:32px;font-size:1rem;font-weight:700;cursor:pointer;color:var(--cacao);}
+    .modal .msgs{padding:16px 20px;display:flex;flex-direction:column;gap:8px;}
+    .modal .msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:0.9rem;white-space:pre-wrap;word-break:break-word;}
+    .modal .msg.usuario{align-self:flex-end;background:var(--cacao);color:var(--hueso);border-bottom-right-radius:4px;}
+    .modal .msg.asistente{align-self:flex-start;background:var(--crema);border:2px solid var(--linea);color:var(--cacao);border-bottom-left-radius:4px;}
+    .modal .msg .hora{display:block;font-size:0.68rem;opacity:0.7;margin-top:4px;}
+    @media(max-width:900px){.contenido{grid-template-columns:1fr;padding:0 16px 32px;}.stats{padding:16px;}}
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Panel de leads y cotizaciones</h1>
+      <div class="sub">Elías Reyes y su Proyecto 7</div>
+    </div>
+    <a href="/">← Volver al sitio</a>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num" id="sTotales">0</div><div class="lbl">Cotizaciones</div></div>
+    <div class="stat"><div class="num" id="sNuevas">0</div><div class="lbl">Sin revisar</div></div>
+    <div class="stat"><div class="num" id="sChats">0</div><div class="lbl">Conversaciones</div></div>
+  </div>
+
+  <div class="contenido">
+    <div class="panel" id="panelCotizaciones">
+      <h2>Cotizaciones y leads <span class="count" id="contCot">0</span></h2>
+      <div id="listaCotizaciones"><div class="vacio">Cargando…</div></div>
+    </div>
+
+    <div class="panel">
+      <h2>Conversaciones del chat <span class="count" id="contChat">0</span></h2>
+      <div class="chat" id="listaChats"><div class="vacio">Cargando…</div></div>
+    </div>
+  </div>
+
+  <div class="modal-fondo" id="modalChat">
+    <div class="modal">
+      <header>
+        <h3 id="modalTitulo">Conversación</h3>
+        <button class="cerrar" onclick="document.getElementById('modalChat').classList.remove('abierto')">✕</button>
+      </header>
+      <div class="msgs" id="modalMensajes"></div>
+    </div>
+  </div>
+
+  <script>
+    const TIPOS = { serenata: '🎵 Serenata', horas: '⏱ Por hora', evento: '🎉 Evento', chat: '💬 Chat' };
+
+    function fmtFecha(iso){
+      if(!iso) return '';
+      const d = new Date(iso);
+      return d.toLocaleString('es-MX', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+    }
+
+    function datosDetalles(cot){
+      const d = cot.detalles || {};
+      if(cot.tipo_servicio === 'serenata') return `${d.canciones||4} canciones · Fuera de Mérida: ${d.fuera_merida||'No'}`;
+      if(cot.tipo_servicio === 'horas') return `${d.horas||1} hora(s)`;
+      if(cot.tipo_servicio === 'evento') return `${d.tipo_evento||'Evento'} · ${d.horas_estimadas||'—'} hr(s)`;
+      return d.origen === 'chat' ? 'Lead capturado por el asistente' : '';
+    }
+
+    async function cargarCotizaciones(){
+      try{
+        const res = await fetch('/api/admin/cotizaciones');
+        const lista = await res.json();
+        document.getElementById('sTotales').textContent = lista.length;
+        const noLeidas = lista.filter(c => !c.leido);
+        document.getElementById('sNuevas').textContent = noLeidas.length;
+        document.getElementById('contCot').textContent = lista.length;
+
+        const cont = document.getElementById('listaCotizaciones');
+        if(!lista.length){ cont.innerHTML = '<div class="vacio">Aún no hay cotizaciones.</div>'; return; }
+
+        cont.innerHTML = lista.map(c => {
+          const enlace = `/cotizacion/${c.token_unico}`;
+          const wa = c.cliente_telefono ? `https://wa.me/52${c.cliente_telefono.replace(/\D/g,'').replace(/^52/,'')}` : '';
+          const msj = encodeURIComponent(`¡Hola! Soy ${c.cliente_nombre}, solicité una cotización (${TIPOS[c.tipo_servicio]||c.tipo_servicio}) y quiero confirmar.`);
+          return `
+            <div class="item ${c.leido?'':'no-leido'}">
+              <div class="cab">
+                <div>
+                  <span class="nombre">${c.cliente_nombre || 'Sin nombre'}</span>
+                  <span class="folio">· folio #${c.id}</span>
+                </div>
+                <span class="tipo ${c.tipo_servicio}">${TIPOS[c.tipo_servicio]||c.tipo_servicio}</span>
+              </div>
+              <div class="detalles">${datosDetalles(c)}</div>
+              <div class="detalles"><b>Monto:</b> ${c.tipo_servicio==='evento' ? 'A convenir' : '$'+Number(c.precio_total).toLocaleString('es-MX')+' MXN'}</div>
+              <div class="detalles">${c.mensaje ? '💬 <b>' + c.mensaje + '</b>' : ''}</div>
+              <div class="meta">
+                ${c.cliente_telefono ? '📱 '+c.cliente_telefono+' · ' : ''}${c.cliente_email ? '✉️ '+c.cliente_email+' · ' : ''}
+                ${fmtFecha(c.creada)}
+              </div>
+              <div class="acciones">
+                <a class="btn" href="${enlace}" target="_blank">Ver cotización</a>
+                ${wa ? `<a class="btn wa" href="${wa}?text=${msj}" target="_blank">WhatsApp</a>` : ''}
+                ${c.leido ? '' : `<button class="btn" onclick="marcarLeida(${c.id})">Marcar como revisada</button>`}
+              </div>
+            </div>`;
+        }).join('');
+      }catch(e){ console.error(e); }
+    }
+
+    async function marcarLeida(id){
+      await fetch(`/api/admin/cotizaciones/${id}/leer`, { method:'PUT' });
+      cargarCotizaciones();
+    }
+
+    async function cargarChats(){
+      try{
+        const res = await fetch('/api/admin/conversaciones');
+        const lista = await res.json();
+        document.getElementById('sChats').textContent = lista.length;
+        document.getElementById('contChat').textContent = lista.length;
+
+        const cont = document.getElementById('listaChats');
+        if(!lista.length){ cont.innerHTML = '<div class="vacio">Sin conversaciones todavía.</div>'; return; }
+
+        cont.innerHTML = lista.map(c => {
+          const m = c.metadata || {};
+          const nombre = m.nombre || 'Anónimo';
+          const tel = m.telefono ? ` · 📱 ${m.telefono}` : '';
+          const pasos = m.paso_captura === -1 ? ' ✅ datos completos' : '';
+          return `
+            <div class="c-item" onclick="verChat('${c.session_id}')">
+              <b>${nombre}</b>${tel}
+              <div class="fecha">${fmtFecha(c.actualizada)}${pasos}</div>
+            </div>`;
+        }).join('');
+      }catch(e){ console.error(e); }
+    }
+
+    async function verChat(sessionId){
+      try{
+        const res = await fetch('/api/chat?historial=' + sessionId);
+        if(res.ok){
+          const data = await res.json();
+          renderMensajes(data.mensajes || []);
+        } else {
+          renderMensajes([]);
+        }
+      }catch(e){
+        renderMensajes([]);
+      }
+    }
+
+    function renderMensajes(msgs){
+      document.getElementById('modalTitulo').textContent = 'Conversación';
+      const cont = document.getElementById('modalMensajes');
+      if(!msgs.length){
+        cont.innerHTML = '<div class="vacio">No se pudo cargar el historial completo. (Solo se guarda el resumen de leads.)</div>';
+      } else {
+        cont.innerHTML = msgs.map(m => `
+          <div class="msg ${m.rol==='usuario'?'usuario':'asistente'}">${(m.texto||'').replace(/\n/g,'<br>')}<span class="hora">${fmtFecha(m.hora)}</span></div>
+        `).join('');
+      }
+      document.getElementById('modalChat').classList.add('abierto');
+    }
+
+    cargarCotizaciones();
+    cargarChats();
+    setInterval(() => { cargarCotizaciones(); cargarChats(); }, 20000);
+  </script>
+</body>
+</html>

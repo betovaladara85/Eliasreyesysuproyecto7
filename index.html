@@ -1,0 +1,1578 @@
+<!DOCTYPE html><html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elías Reyes y su Proyecto 7 | Trío Musical en Mérida, Yucatán</title>
+<meta name="description" content="Elías Reyes y su Proyecto 7 — trío musical en Mérida, Yucatán. Bodas, eventos privados, bares y presentaciones culturales. Contrataciones disponibles.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Work+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --sol:#FFC93C;
+    --sol-suave:#FFE39B;
+    --rosa:#E0457B;
+    --rosa-osc:#A82E58;
+    --turquesa:#00A9A5;
+    --turquesa-osc:#067572;
+    --cacao:#3D2400;
+    --cacao-suave:#6B4423;
+    --hueso:#FFFAF0;
+    --crema:#FFF3D6;
+    --linea: rgba(61,36,0,0.14);
+
+    --display:'Fraunces', serif;
+    --cuerpo:'Work Sans', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--hueso);
+    color:var(--cacao);
+    font-family:var(--cuerpo);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;}
+  input, select, textarea{font-family:inherit;}
+
+  ::selection{background:var(--rosa);color:#fff;}
+  :focus-visible{outline:3px solid var(--turquesa-osc);outline-offset:3px;}
+
+  .envoltura{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+  .eyebrow{
+    font-size:0.8rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--rosa-osc);
+    font-weight:700;
+  }
+
+  .titulo-seccion{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(2rem, 4vw, 3rem);
+    line-height:1.06;
+    color:var(--cacao);
+    letter-spacing:-0.01em;
+  }
+
+  .boton{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:14px 30px;
+    border-radius:50px;
+    font-weight:700;
+    font-size:0.95rem;
+    transition:transform .2s ease, box-shadow .2s ease;
+    border:2px solid transparent;
+  }
+  .boton-primario{background:var(--rosa);color:#fff;box-shadow:0 4px 0 var(--rosa-osc);}
+  .boton-primario:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--rosa-osc);}
+  .boton-primario:active{transform:translateY(1px);box-shadow:0 2px 0 var(--rosa-osc);}
+  .boton-secundario{border-color:var(--cacao);color:var(--cacao);background:transparent;}
+  .boton-secundario:hover{background:var(--cacao);color:var(--hueso);}
+  .boton-terciario{background:var(--turquesa);color:#fff;box-shadow:0 4px 0 var(--turquesa-osc);}
+  .boton-terciario:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--turquesa-osc);}
+
+  section{padding:88px 0;}
+  @media(max-width:640px){section{padding:56px 0;}}
+
+  /* cenefa de hipil */
+  .cenefa{
+    height:28px;
+    width:100%;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='28' viewBox='0 0 84 28'%3E%3Cg fill='none' stroke='%233D2400' stroke-width='1.6'%3E%3Cpath d='M0 14 Q7 2 14 14 T28 14 T42 14 T56 14 T70 14 T84 14'/%3E%3Ccircle cx='14' cy='14' r='2.6' fill='%23E0457B' stroke='none'/%3E%3Ccircle cx='42' cy='14' r='2.6' fill='%2300A9A5' stroke='none'/%3E%3Ccircle cx='70' cy='14' r='2.6' fill='%23FFC93C' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat:repeat-x;
+    background-size:84px 28px;
+  }
+  .cenefa-sol{background-color:var(--sol);}
+  .cenefa-hueso{background-color:var(--hueso);}
+
+  /* reveal */
+  .reveal{opacity:1;transform:none;}
+  .js-activo .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .js-activo .reveal.visible{opacity:1;transform:translateY(0);}
+
+  /* header */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(255,250,240,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:2px solid var(--cacao);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px;max-width:1180px;margin:0 auto;gap:16px;
+  }
+  .marca{font-family:var(--display);font-size:1.25rem;font-weight:700;white-space:nowrap;}
+  .marca span{color:var(--rosa);}
+  .nav-enlaces{display:flex;gap:18px;font-size:0.82rem;font-weight:600;align-items:center;flex-wrap:nowrap;}
+  .nav-enlaces a{position:relative;padding-bottom:4px;white-space:nowrap;}
+  .nav-enlaces a::after{
+    content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+    background:var(--rosa);border-radius:3px;
+    transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
+  }
+  .nav-enlaces a:hover::after{transform:scaleX(1);}
+  .nav-cta{display:none;}
+  @media(min-width:1100px){.nav-cta{display:inline-flex;}}
+  .nav-movil-btn{display:none;background:none;border:none;color:var(--cacao);font-size:1.7rem;flex-shrink:0;}
+  @media(max-width:1099px){.nav-enlaces{display:none;}.nav-movil-btn{display:block;}}
+  .menu-movil{display:none;flex-direction:column;padding:8px 28px 24px;gap:16px;border-top:2px solid var(--cacao);background:var(--hueso);}
+  .menu-movil.abierto{display:flex;}
+  .menu-movil a{font-weight:600;}
+
+  /* hero */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    padding-top:110px;padding-bottom:40px;
+    background:
+      radial-gradient(ellipse 800px 500px at 90% 0%, rgba(0,169,165,0.18), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 0% 100%, rgba(224,69,123,0.16), transparent 60%),
+      var(--sol);
+    overflow:hidden;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:center;width:100%;}
+  @media(max-width:920px){.hero-grid{grid-template-columns:1fr;}}
+
+  .hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .hero-eyebrow .punto{width:9px;height:9px;border-radius:50%;background:var(--rosa);box-shadow:0 0 0 5px rgba(224,69,123,0.25);animation:pulso 2.2s ease-in-out infinite;}
+  @keyframes pulso{0%,100%{box-shadow:0 0 0 5px rgba(224,69,123,0.25);}50%{box-shadow:0 0 0 10px rgba(224,69,123,0.06);}}
+
+  .hero h1{
+    font-family:var(--display);font-weight:800;
+    font-size:clamp(2.6rem, 6.4vw, 4.8rem);
+    line-height:0.98;letter-spacing:-0.015em;color:var(--cacao);
+  }
+  .hero h1 em{font-style:italic;font-weight:600;color:var(--rosa);display:block;}
+  .hero-sub{margin-top:22px;font-size:1.15rem;max-width:480px;color:var(--cacao-suave);font-weight:500;}
+  .hero-botones{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+  .hero-datos{display:flex;gap:34px;margin-top:46px;flex-wrap:wrap;}
+  .hero-dato b{font-family:var(--display);font-size:1.9rem;color:var(--rosa-osc);display:block;font-weight:800;}
+  .hero-dato span{font-size:0.8rem;color:var(--cacao-suave);font-weight:600;}
+
+  /* carrusel hero */
+  .carrusel{
+    position:relative;border-radius:20px;overflow:hidden;
+    border:4px solid var(--cacao);
+    aspect-ratio:4/5;
+    box-shadow:10px 10px 0 var(--rosa);
+  }
+  .carrusel-track{display:flex;height:100%;transition:transform .6s cubic-bezier(.65,0,.35,1);}
+  .carrusel-slide{
+    min-width:100%;height:100%;
+    display:flex;align-items:flex-end;
+    padding:22px;
+    position:relative;
+  }
+  .carrusel-slide:nth-child(1){background:linear-gradient(160deg, var(--turquesa), var(--cacao) 120%);}
+  .carrusel-slide:nth-child(2){background:linear-gradient(160deg, var(--rosa), var(--cacao) 120%);}
+  .carrusel-slide:nth-child(3){background:linear-gradient(160deg, var(--sol-suave), var(--rosa-osc) 130%);}
+  .carrusel-slide span{
+    color:#fff;font-weight:700;font-size:0.95rem;
+    background:rgba(61,36,0,0.45);
+    padding:8px 14px;border-radius:10px;
+    backdrop-filter:blur(4px);
+  }
+  .carrusel-dots{
+    position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+    display:flex;gap:8px;z-index:5;
+  }
+  .carrusel-dots button{
+    width:9px;height:9px;border-radius:50%;border:none;
+    background:rgba(255,255,255,0.5);padding:0;
+  }
+  .carrusel-dots button.activo{background:#fff;width:22px;border-radius:6px;}
+
+  /* en vivo */
+  .en-vivo{background:var(--cacao);color:var(--hueso);}
+  .en-vivo .eyebrow{color:var(--sol);}
+  .en-vivo .titulo-seccion{color:var(--hueso);}
+  .seccion-cabecera{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:44px;flex-wrap:wrap;}
+
+  .reproductor{display:grid;grid-template-columns:1.6fr 1fr;gap:24px;}
+  @media(max-width:780px){.reproductor{grid-template-columns:1fr;}}
+  .pantalla-video{
+    position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/9;
+    background:linear-gradient(135deg, var(--turquesa-osc), var(--rosa-osc));
+    border:3px solid var(--sol);
+  }
+  .pantalla-video iframe{width:100%;height:100%;border:0;}
+  .lista-clips{display:flex;flex-direction:column;gap:10px;}
+  .clip-mini{
+    display:flex;align-items:center;gap:12px;padding:11px;border-radius:12px;
+    border:2px solid transparent;background:rgba(255,250,240,0.06);
+    transition:border-color .2s, background .2s;
+    text-align:left;width:100%;
+  }
+  .clip-mini.activo, .clip-mini:hover{border-color:var(--sol);background:rgba(255,201,60,0.1);}
+  .clip-mini .miniatura{
+    width:64px;height:48px;border-radius:8px;flex-shrink:0;
+    background:linear-gradient(135deg, var(--rosa), var(--turquesa));
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;
+  }
+  .clip-mini .info b{font-family:var(--display);font-size:0.9rem;font-weight:700;display:block;}
+  .clip-mini .info span{font-size:0.76rem;color:rgba(255,250,240,0.6);}
+
+  /* cancionero */
+  .repo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  @media(max-width:780px){.repo-grid{grid-template-columns:1fr;}}
+  .repo-card{
+    background:var(--crema);border-radius:18px;padding:30px;
+    border:2px solid var(--cacao);
+  }
+  .repo-card h3{font-family:var(--display);font-size:1.3rem;font-weight:700;margin-bottom:8px;}
+  .repo-card p{font-size:0.9rem;color:var(--cacao-suave);margin-bottom:20px;}
+  .dropzone{
+    border:2.5px dashed var(--rosa);
+    border-radius:14px;
+    padding:32px 18px;
+    text-align:center;
+    background:var(--hueso);
+    transition:background .2s, border-color .2s;
+    cursor:pointer;
+  }
+  .dropzone:hover, .dropzone.arrastrando{background:var(--sol-suave);border-color:var(--turquesa);}
+  .dropzone .icono-subida{font-size:1.8rem;margin-bottom:8px;}
+  .dropzone p{margin:0;font-size:0.88rem;color:var(--cacao-suave);}
+  .dropzone strong{color:var(--rosa-osc);}
+  .lista-archivos{margin-top:16px;display:flex;flex-direction:column;gap:8px;}
+  .archivo-item{
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--hueso);border:1.5px solid var(--linea);
+    border-radius:10px;padding:9px 14px;font-size:0.84rem;
+  }
+  .archivo-item .quitar{color:var(--rosa-osc);font-weight:700;background:none;border:none;font-size:1rem;}
+  .nota-derechos{
+    margin-top:18px;font-size:0.78rem;color:var(--cacao-suave);
+    background:var(--hueso);border-radius:10px;padding:12px 14px;
+    border-left:4px solid var(--turquesa);
+  }
+
+  /* grabación */
+  .grabacion{background:linear-gradient(165deg, var(--turquesa) 0%, var(--turquesa-osc) 100%);color:#fff;}
+  .grabacion .eyebrow{color:var(--sol);}
+  .grabacion .titulo-seccion{color:#fff;}
+  .grab-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+  @media(max-width:880px){.grab-grid{grid-template-columns:1fr;}}
+  .grab-panel{
+    background:rgba(255,250,240,0.08);
+    border:2px solid rgba(255,250,240,0.3);
+    border-radius:20px;padding:26px;
+  }
+  .grab-pantalla{
+    position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;
+    background:#06201f;display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--sol);
+  }
+  .grab-pantalla video{width:100%;height:100%;object-fit:cover;}
+  .grab-placeholder{color:rgba(255,250,240,0.6);font-size:0.9rem;text-align:center;padding:20px;}
+  .grab-controles{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;}
+  .grab-timer{
+    position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);
+    color:#fff;font-size:0.78rem;font-weight:700;padding:4px 10px;border-radius:20px;
+  }
+  .lista-pasos{display:flex;flex-direction:column;gap:18px;}
+  .paso{display:flex;gap:14px;align-items:flex-start;}
+  .paso-num{
+    width:34px;height:34px;border-radius:50%;background:var(--sol);color:var(--cacao);
+    display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-family:var(--display);
+  }
+  .paso b{display:block;margin-bottom:3px;}
+  .paso span{font-size:0.88rem;color:rgba(255,250,240,0.75);}
+
+  /* galería */
+  .galeria-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:170px;gap:14px;}
+  .galeria-grid > div:nth-child(1){grid-column:span 2;grid-row:span 2;}
+  .galeria-grid > div:nth-child(5){grid-column:span 2;}
+  @media(max-width:780px){
+    .galeria-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px;}
+    .galeria-grid > div:nth-child(1){grid-column:span 2;grid-row:span 1;}
+    .galeria-grid > div:nth-child(5){grid-column:span 1;}
+  }
+  .foto{
+    border-radius:16px;overflow:hidden;position:relative;
+    background:linear-gradient(160deg, var(--rosa), var(--turquesa) 120%);
+    border:3px solid var(--cacao);
+    display:flex;align-items:flex-end;padding:14px;
+    cursor:pointer;
+    transition:transform .2s ease, border-color .2s;
+  }
+  .foto:hover{transform:scale(1.02);border-color:var(--turquesa);}
+  .foto span{color:#fff;font-size:0.8rem;font-weight:700;background:rgba(61,36,0,0.4);padding:5px 10px;border-radius:8px;z-index:2;position:relative;}
+  .foto .icono-carga{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    color:#fff;font-size:2rem;opacity:0.8;z-index:1;
+    pointer-events:none;
+  }
+  .foto img,.foto video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .foto .btn-remover{
+    position:absolute;top:6px;right:6px;z-index:5;
+    background:var(--rosa);color:#fff;border:none;
+    border-radius:50%;width:26px;height:26px;
+    display:none;align-items:center;justify-content:center;
+    font-size:0.8rem;cursor:pointer;
+  }
+  .foto:hover .btn-remover{display:flex;}
+
+  /* media grid */
+  .media-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;
+    margin-top:20px;
+  }
+  .media-item{
+    position:relative;border-radius:12px;overflow:hidden;
+    aspect-ratio:1;border:2px solid var(--linea);
+    background:var(--crema);
+  }
+  .media-item img,.media-item video{width:100%;height:100%;object-fit:cover;}
+  .media-item .btn-quitar-media{
+    position:absolute;top:4px;right:4px;z-index:3;
+    background:var(--rosa);color:#fff;border:none;
+    border-radius:50%;width:22px;height:22px;
+    font-size:0.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+
+  /* subir media */
+  #subir-media .media-dropzone{
+    border:3px dashed var(--rosa);
+    border-radius:18px;
+    padding:48px 24px;
+    text-align:center;
+    background:var(--crema);
+    transition:background .25s, border-color .25s, transform .2s;
+    cursor:pointer;
+  }
+  #subir-media .media-dropzone:hover,
+  #subir-media .media-dropzone.arrastrando{
+    background:var(--sol-suave);
+    border-color:var(--turquesa);
+    transform:scale(1.01);
+  }
+  #subir-media .media-dropzone .icono-grande{font-size:3rem;margin-bottom:12px;}
+  #subir-media .media-dropzone p{font-size:1rem;color:var(--cacao-suave);}
+  #subir-media .media-dropzone strong{color:var(--rosa-osc);}
+  #subir-media .media-stats{
+    display:flex;gap:24px;justify-content:center;
+    margin-top:16px;font-size:0.85rem;color:var(--cacao-suave);
+  }
+  #subir-media .media-stats span{font-weight:700;color:var(--rosa-osc);font-family:var(--display);font-size:1.2rem;}
+
+  /* géneros */
+  .genero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:780px){.genero-grid{grid-template-columns:1fr;}}
+  .genero-card{
+    background:var(--hueso);border:2.5px solid var(--cacao);border-radius:18px;
+    padding:28px;transition:transform .2s ease;
+  }
+  .genero-card:hover{transform:translateY(-6px);}
+  .genero-card .icono{font-size:1.6rem;margin-bottom:10px;}
+  .genero-card h3{font-family:var(--display);font-size:1.35rem;font-weight:700;}
+  .genero-card p{margin-top:8px;font-size:0.9rem;color:var(--cacao-suave);}
+
+  /* cotizador */
+  #cotizador{background:var(--crema);}
+  .cot-tabs{display:flex;gap:6px;margin-bottom:32px;flex-wrap:wrap;}
+  .cot-tab{
+    padding:10px 24px;border-radius:50px;font-weight:700;font-size:0.88rem;
+    border:2px solid var(--cacao);background:var(--hueso);color:var(--cacao);
+    transition:all .2s;
+  }
+  .cot-tab.activo{background:var(--rosa);color:#fff;border-color:var(--rosa);box-shadow:0 3px 0 var(--rosa-osc);}
+  .cot-tab:hover:not(.activo){background:var(--sol-suave);}
+  .cot-panel{display:none;background:var(--hueso);border:2px solid var(--cacao);border-radius:18px;padding:30px;}
+  .cot-panel.activo{display:block;}
+  .cot-panel h3{font-family:var(--display);font-size:1.15rem;font-weight:700;margin-bottom:18px;}
+  .cot-fila{display:flex;align-items:center;gap:16px;margin-bottom:14px;flex-wrap:wrap;}
+  .cot-fila label{font-size:0.88rem;font-weight:600;min-width:140px;color:var(--cacao-suave);}
+  .cot-fila input,.cot-fila select{
+    flex:1;min-width:100px;padding:10px 14px;border:2px solid var(--cacao);border-radius:10px;
+    font-size:0.92rem;background:var(--hueso);color:var(--cacao);
+  }
+  .cot-fila input:focus,.cot-fila select:focus{border-color:var(--turquesa);outline:none;}
+  .cot-fila input[type="number"]{max-width:100px;}
+  .cot-resultado{
+    margin-top:20px;padding:20px;background:var(--sol-suave);border-radius:14px;
+    border:2px solid var(--cacao);text-align:center;
+  }
+  .cot-resultado .precio-final{
+    font-family:var(--display);font-size:2.2rem;font-weight:800;color:var(--rosa-osc);
+    display:block;
+  }
+  .cot-resultado .precio-label{font-size:0.78rem;color:var(--cacao-suave);font-weight:600;text-transform:uppercase;letter-spacing:0.1em;}
+  .cot-form-trigger{margin-top:24px;}
+  .cot-form-trigger summary{font-weight:700;cursor:pointer;padding:10px 0;font-size:0.95rem;color:var(--rosa-osc);}
+  .cot-form-trigger .campo{margin-bottom:14px;}
+  .cot-mensaje-exito{
+    display:none;background:var(--turquesa);color:#fff;padding:24px;border-radius:16px;
+    text-align:center;margin-top:20px;
+  }
+  .cot-mensaje-exito b{display:block;font-size:1.1rem;margin-bottom:6px;}
+  .cot-mensaje-exito .enlace-cot{color:var(--sol);font-weight:700;word-break:break-all;display:block;margin-top:8px;font-size:0.85rem;}
+
+  /* agenda / calendario */
+  #agenda{background:var(--hueso);}
+  .cal-wrap{background:#fff;border:3px solid var(--cacao);border-radius:20px;padding:28px;overflow:hidden;}
+  .cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+  .cal-nav button{background:none;border:2px solid var(--cacao);border-radius:50%;width:38px;height:38px;font-size:1.1rem;cursor:pointer;transition:all .2s;color:var(--cacao);}
+  .cal-nav button:hover{background:var(--rosa);color:#fff;border-color:var(--rosa);}
+  .cal-nav h3{font-family:var(--display);font-size:1.2rem;font-weight:700;}
+
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;}
+  .cal-grid .cal-dia-nombre{padding:8px 4px;font-size:0.75rem;font-weight:700;color:var(--cacao-suave);text-transform:uppercase;letter-spacing:0.05em;}
+  .cal-grid .cal-dia{
+    padding:10px 4px;border-radius:10px;font-size:0.88rem;font-weight:600;
+    border:2px solid transparent;position:relative;cursor:default;transition:all .15s;
+  }
+  .cal-grid .cal-dia.otro-mes{opacity:0.25;pointer-events:none;}
+  .cal-grid .cal-dia.disponible{background:#e8f8f5;color:var(--turquesa-osc);border-color:var(--turquesa);cursor:pointer;}
+  .cal-grid .cal-dia.disponible:hover{transform:scale(1.08);background:var(--turquesa);color:#fff;}
+  .cal-grid .cal-dia.disponible::after{content:'✓';position:absolute;top:-5px;right:-5px;font-size:0.6rem;background:var(--turquesa);color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;}
+  .cal-grid .cal-dia.reservado{background:#fde8ef;color:var(--rosa-osc);border-color:var(--rosa);opacity:0.7;}
+  .cal-grid .cal-dia.reservado::after{content:'▸';position:absolute;top:-5px;right:-5px;font-size:0.6rem;background:var(--rosa);color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;}
+  .cal-grid .cal-dia.consultar{cursor:pointer;border-color:transparent;}
+  .cal-grid .cal-dia.consultar:hover{background:var(--sol-suave);border-color:var(--sol);}
+
+  .cal-leyenda{display:flex;gap:20px;justify-content:center;margin-top:18px;flex-wrap:wrap;font-size:0.78rem;}
+  .cal-leyenda span{display:flex;align-items:center;gap:6px;color:var(--cacao-suave);}
+  .cal-leyenda .punto{width:10px;height:10px;border-radius:50%;display:inline-block;border:1.5px solid;}
+  .cal-leyenda .punto.verde{background:#e8f8f5;border-color:var(--turquesa);}
+  .cal-leyenda .punto.rojo{background:#fde8ef;border-color:var(--rosa);}
+  .cal-leyenda .punto.gris{background:var(--hueso);border-color:var(--linea);}
+
+  .cal-info-evento{
+    display:none;margin-top:16px;padding:16px 20px;
+    background:var(--sol-suave);border:2px solid var(--cacao);border-radius:14px;
+    text-align:center;
+  }
+  .cal-info-evento.visible{display:block;}
+  .cal-info-evento b{display:block;font-family:var(--display);font-size:1.05rem;margin-bottom:4px;}
+  .cal-info-evento span{font-size:0.88rem;color:var(--cacao-suave);}
+
+  /* eventos */
+  .eventos{background:var(--sol-suave);}
+  .evento-fila{
+    display:flex;align-items:center;gap:24px;padding:18px 20px;margin-bottom:12px;
+    background:var(--hueso);border:2px solid var(--cacao);border-radius:16px;flex-wrap:wrap;
+  }
+  .evento-fecha{
+    font-family:var(--display);font-size:1.6rem;font-weight:800;color:var(--rosa-osc);
+    min-width:80px;text-align:center;
+  }
+  .evento-fecha small{display:block;font-family:var(--cuerpo);font-size:0.7rem;color:var(--cacao-suave);letter-spacing:0.08em;text-transform:uppercase;font-weight:700;}
+  .evento-info{flex:1;min-width:200px;}
+  .evento-info b{font-family:var(--display);font-size:1.05rem;font-weight:700;}
+  .evento-info span{display:block;font-size:0.84rem;color:var(--cacao-suave);margin-top:2px;}
+  .evento-tag{font-size:0.74rem;padding:6px 14px;border-radius:20px;background:var(--turquesa);color:#fff;font-weight:700;}
+
+  /* contacto */
+  .contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;}
+  @media(max-width:880px){.contacto-grid{grid-template-columns:1fr;gap:36px;}}
+  .campo{margin-bottom:18px;}
+  .campo label{display:block;font-size:0.84rem;font-weight:700;color:var(--rosa-osc);margin-bottom:7px;}
+  .campo input, .campo select, .campo textarea{
+    width:100%;background:var(--hueso);border:2px solid var(--cacao);border-radius:10px;
+    padding:12px 14px;color:var(--cacao);font-family:var(--cuerpo);font-size:0.95rem;
+  }
+  .campo input:focus, .campo select:focus, .campo textarea:focus{border-color:var(--turquesa);outline:none;}
+  .campo textarea{resize:vertical;min-height:100px;}
+
+  .canal{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:2px solid var(--linea);}
+  .canal .marcador{
+    width:42px;height:42px;border-radius:50%;background:var(--rosa);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;flex-shrink:0;
+  }
+  .canal b{font-size:0.98rem;}
+  .canal span{display:block;font-size:0.82rem;color:var(--cacao-suave);}
+
+  footer{background:var(--cacao);color:var(--crema);padding:44px 0 28px;text-align:center;}
+  footer .marca{display:block;margin-bottom:12px;font-size:1.1rem;color:var(--hueso);}
+  footer .marca span{color:var(--sol);}
+  footer p{font-size:0.82rem;color:rgba(255,243,214,0.6);}
+
+  /* chat widget */
+  .ch-btn{
+    position:fixed;bottom:28px;right:28px;z-index:999;
+    width:64px;height:64px;border-radius:50%;
+    background:var(--rosa);color:#fff;border:3px solid var(--cacao);
+    font-size:1.7rem;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 0 var(--rosa-osc),0 8px 24px rgba(0,0,0,0.2);
+    transition:transform .2s,box-shadow .2s;
+  }
+  .ch-btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--rosa-osc),0 12px 32px rgba(0,0,0,0.25);}
+  .ch-btn:active{transform:translateY(2px);box-shadow:0 3px 0 var(--rosa-osc);}
+
+  .ch-panel{
+    position:fixed;bottom:100px;right:28px;z-index:998;
+    width:380px;max-width:calc(100vw - 56px);height:520px;max-height:calc(100vh - 140px);
+    background:#fff;border:3px solid var(--cacao);border-radius:20px;
+    display:none;flex-direction:column;
+    box-shadow:0 12px 40px rgba(0,0,0,0.2);
+    overflow:hidden;
+  }
+  .ch-panel.abierto{display:flex;}
+
+  .ch-header{
+    background:var(--rosa);color:#fff;padding:16px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+    border-bottom:3px solid var(--rosa-osc);
+  }
+  .ch-header h3{font-family:var(--display);font-size:1rem;font-weight:700;}
+  .ch-header small{font-size:0.7rem;opacity:0.8;display:block;margin-top:2px;}
+  .ch-header button{background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;}
+
+  .ch-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--hueso);}
+  .ch-msgs .msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:0.88rem;line-height:1.5;animation:chFade .3s ease;white-space:pre-wrap;}
+  @keyframes chFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .ch-msgs .msg.usuario{align-self:flex-end;background:var(--rosa);color:#fff;border-bottom-right-radius:4px;}
+  .ch-msgs .msg.asistente{align-self:flex-start;background:#fff;color:var(--cacao);border:2px solid var(--linea);border-bottom-left-radius:4px;}
+  .ch-msgs .msg.asistente strong{color:var(--rosa-osc);}
+
+  .ch-acciones{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px 4px;background:var(--hueso);border-top:1px solid var(--linea);}
+  .ch-acciones button{
+    font-size:0.72rem;padding:5px 10px;border-radius:12px;
+    border:1.5px solid var(--rosa);background:#fff;color:var(--rosa-osc);
+    font-weight:600;cursor:pointer;transition:all .2s;
+  }
+  .ch-acciones button:hover{background:var(--rosa);color:#fff;}
+
+  .ch-input-wrap{display:flex;gap:8px;padding:10px 16px 16px;background:var(--hueso);border-top:1px solid var(--linea);}
+  .ch-input-wrap input{
+    flex:1;padding:10px 14px;border:2px solid var(--cacao);border-radius:50px;
+    font-size:0.88rem;background:#fff;color:var(--cacao);
+  }
+  .ch-input-wrap input:focus{outline:none;border-color:var(--turquesa);}
+  .ch-input-wrap button{
+    width:42px;height:42px;border-radius:50%;background:var(--turquesa);color:#fff;
+    border:2px solid var(--turquesa-osc);font-size:1rem;display:flex;align-items:center;justify-content:center;
+    transition:transform .15s;
+  }
+  .ch-input-wrap button:hover{transform:scale(1.05);}
+
+  .ch-typing{display:none;align-self:flex-start;gap:4px;padding:8px 14px;background:#fff;border:2px solid var(--linea);border-radius:14px;border-bottom-left-radius:4px;}
+  .ch-typing.activo{display:flex;}
+  .ch-typing span{width:7px;height:7px;border-radius:50%;background:var(--cacao-suave);animation:chBounce 1.2s infinite;}
+  .ch-typing span:nth-child(2){animation-delay:.2s;}
+  .ch-typing span:nth-child(3){animation-delay:.4s;}
+  @keyframes chBounce{0%,80%,100%{opacity:0.3;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+
+  .ch-notif{
+    position:absolute;top:-4px;right:-4px;
+    width:18px;height:18px;border-radius:50%;background:var(--sol);
+    color:var(--cacao);font-size:0.6rem;font-weight:800;
+    display:none;align-items:center;justify-content:center;
+    border:2px solid var(--cacao);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}
+    .reveal{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="marca">Elías Reyes <span>& su Proyecto 7</span></div>
+    <div class="nav-enlaces">
+      <a href="#en-vivo">En vivo</a>
+      <a href="#repertorio-archivos">Cancionero</a>
+      <a href="#graba">Graba con nosotros</a>
+      <a href="#galeria">Galería</a>
+      <a href="#subir-media">Subir fotos/videos</a>
+      <a href="#cotizador">Cotizador</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a href="#cotizador" class="boton boton-primario nav-cta">Cotiza aquí</a>
+    <button class="nav-movil-btn" id="btnMenu" aria-label="Abrir menú">☰</button>
+  </nav>
+  <div class="menu-movil" id="menuMovil">
+    <a href="#en-vivo">En vivo</a>
+    <a href="#repertorio-archivos">Cancionero</a>
+    <a href="#graba">Graba con nosotros</a>
+    <a href="#galeria">Galería</a>
+    <a href="#subir-media">Subir fotos/videos</a>
+    <a href="#cotizador">Cotizador</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#eventos">Eventos</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="envoltura hero-grid">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="punto"></span>
+        <span class="eyebrow">Trío musical · Mérida, Yucatán</span>
+      </div>
+      <h1>Elías Reyes<em>y su Proyecto 7</em></h1>
+      <p class="hero-sub">Cuando la música llega al alma, despierta emociones que se guardan en el corazón. Ese es el mejor recuerdo, para toda la vida.</p>
+      <p style="font-size:0.95rem;color:var(--cacao-suave);margin-top:14px;max-width:480px;">Tres voces, una guitarra y un repertorio sin fronteras. Bodas, bares, eventos institucionales y noches que se cuentan después.</p>
+      <div class="hero-botones">
+        <a href="#contacto" class="boton boton-primario">Cotiza tu evento</a>
+        <a href="#graba" class="boton boton-secundario">Graba con nosotros ▸</a>
+      </div>
+      <div class="hero-datos">
+        <div class="hero-dato"><b>+150</b><span>Presentaciones realizadas</span></div>
+        <div class="hero-dato"><b>3</b><span>Voces en armonía</span></div>
+        <div class="hero-dato"><b>5+</b><span>Géneros en repertorio</span></div>
+      </div>
+    </div>
+    <div class="carrusel" id="carrusel">
+      <div class="carrusel-track" id="carruselTrack">
+        <div class="carrusel-slide"><span>Bodas y eventos privados</span></div>
+        <div class="carrusel-slide"><span>Presentaciones en bares y restaurantes</span></div>
+        <div class="carrusel-slide"><span>Eventos culturales e institucionales</span></div>
+      </div>
+      <div class="carrusel-dots" id="carruselDots"></div>
+    </div>
+  </div>
+</section>
+
+<div class="cenefa cenefa-sol"></div>
+
+<section class="en-vivo" id="en-vivo">
+  <div class="envoltura">
+    <div class="seccion-cabecera reveal">
+      <div>
+        <span class="eyebrow">Escúchanos</span>
+        <h2 class="titulo-seccion">En vivo</h2>
+      </div>
+      <a href="https://www.youtube.com" target="_blank" rel="noopener" class="boton boton-terciario">Canal de YouTube ▸</a>
+    </div>
+    <div class="reproductor reveal">
+      <div class="pantalla-video">
+        <iframe id="videoPrincipal" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video destacado del trío" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="lista-clips">
+        <button class="clip-mini activo" data-video="dQw4w9WgXcQ"><div class="miniatura">▶</div><div class="info"><b>Boda en Mérida — set completo</b><span>Reemplaza con tu video</span></div></button>
+        <button class="clip-mini" data-video="dQw4w9WgXcQ"><div class="miniatura">▶</div><div class="info"><b>Cover acústico</b><span>Reemplaza con tu video</span></div></button>
+        <button class="clip-mini" data-video="dQw4w9WgXcQ"><div class="miniatura">▶</div><div class="info"><b>Presentación en bar</b><span>Reemplaza con tu video</span></div></button>
+        <button class="clip-mini" data-video="dQw4w9WgXcQ"><div class="miniatura">▶</div><div class="info"><b>Detrás de cámaras</b><span>Reemplaza con tu video</span></div></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="repertorio-archivos">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Su material</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:36px;">Cancionero del trío</h2>
+    <p class="reveal" style="max-width:620px;color:var(--cacao-suave);margin-bottom:36px;margin-top:-20px;">Aquí pueden subir letras y partituras propias o arreglos del trío para tenerlos organizados y disponibles para ensayo.</p>
+    <div class="repo-grid reveal">
+      <div class="repo-card">
+        <h3>📝 Letras propias</h3>
+        <p>Letras originales del trío o transcripciones que ya tengan derecho de usar.</p>
+        <div class="dropzone" id="dropLetras">
+          <div class="icono-subida">📄</div>
+          <p><strong>Arrastra archivos aquí</strong> o haz clic para subir</p>
+        </div>
+        <div class="lista-archivos" id="listaLetras"></div>
+      </div>
+      <div class="repo-card">
+        <h3>🎼 Partituras y arreglos</h3>
+        <p>PDFs de partituras propias, tablaturas o arreglos del trío.</p>
+        <div class="dropzone" id="dropPartituras">
+          <div class="icono-subida">🎵</div>
+          <p><strong>Arrastra archivos aquí</strong> o haz clic para subir</p>
+        </div>
+        <div class="lista-archivos" id="listaPartituras"></div>
+      </div>
+    </div>
+    <div class="nota-derechos reveal">
+      Esta sección es para material propio del trío (composiciones originales, arreglos, transcripciones con derecho de uso). Evita subir letras o partituras de canciones de otros artistas sin licencia, para proteger al trío de reclamos de derechos de autor.
+    </div>
+  </div>
+</section>
+
+<div class="cenefa cenefa-hueso"></div>
+
+<section class="grabacion" id="graba">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Participa</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:36px;">Graba tu video con nosotros</h2>
+    <div class="grab-grid reveal">
+      <div class="grab-panel">
+        <div class="grab-pantalla">
+          <video id="videoPreview" autoplay muted playsinline style="display:none;"></video>
+          <video id="videoSubido" controls playsinline style="display:none;width:100%;height:100%;object-fit:contain;"></video>
+          <div class="grab-placeholder" id="grabPlaceholder">
+            🎤📹<br><br>Toca "Activar cámara" para empezar<br>o sube un video desde tu dispositivo
+          </div>
+          <div class="grab-timer" id="grabTimer" style="display:none;">00:00</div>
+          <div class="video-subido-info" id="videoSubidoInfo"></div>
+        </div>
+        <div class="grab-controles">
+          <button class="boton boton-primario" id="btnActivar">Activar cámara y micrófono</button>
+          <button class="boton boton-terciario" id="btnGrabar" style="display:none;">● Grabar (60 seg)</button>
+          <button class="boton boton-secundario" id="btnSubirVideo" style="color:#fff;border-color:#fff;" onclick="document.getElementById('inputVideoFile').click()">📁 Subir video</button>
+          <input type="file" id="inputVideoFile" accept="video/*" style="display:none;">
+          <a class="boton boton-secundario" id="btnDescargar" style="display:none;color:#fff;border-color:#fff;">Descargar mi video</a>
+        </div>
+        <p style="font-size:0.78rem;color:rgba(255,250,240,0.6);margin-top:14px;">
+          Puedes grabar directo con tu cámara (máx. 60 seg) o subir un video ya grabado desde tu celular o computadora.
+          Los videos grabados con cámara no se suben a ningún servidor — son solo tuyos.
+        </p>
+      </div>
+      <div class="lista-pasos">
+        <div class="paso"><div class="paso-num">1</div><div><b>Activa tu cámara o sube un video</b><span>Elige si grabar en vivo o subir un clip ya grabado.</span></div></div>
+        <div class="paso"><div class="paso-num">2</div><div><b>Escucha el fragmento</b><span>Suena un clip corto e instrumental del trío como pista de fondo.</span></div></div>
+        <div class="paso"><div class="paso-num">3</div><div><b>Graba o selecciona tu toma</b><span>Canta, toca o simplemente acompaña con tu energía — tienes un minuto.</span></div></div>
+        <div class="paso"><div class="paso-num">4</div><div><b>Descarga y comparte</b><span>Guarda tu clip y compártelo etiquetando al trío en redes.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Momentos</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:36px;">Galería</h2>
+    <p class="reveal" style="max-width:620px;color:var(--cacao-suave);margin-bottom:36px;margin-top:-20px;">Haz clic en cualquier espacio para subir una foto o video. Arrastra y suelta también funciona.</p>
+    <div class="galeria-grid reveal" id="galeriaGrid">
+      <div class="foto" data-slot="0"><span>Foto destacada</span><div class="icono-carga">+</div></div>
+      <div class="foto" data-slot="1"><span>Evento privado</span><div class="icono-carga">+</div></div>
+      <div class="foto" data-slot="2"><span>Presentación en bar</span><div class="icono-carga">+</div></div>
+      <div class="foto" data-slot="3"><span>Boda</span><div class="icono-carga">+</div></div>
+      <div class="foto" data-slot="4"><span>Backstage</span><div class="icono-carga">+</div></div>
+      <div class="foto" data-slot="5"><span>Evento cultural</span><div class="icono-carga">+</div></div>
+    </div>
+    <div class="reveal" style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="boton boton-primario" id="btnAgregarSlot">+ Agregar espacio</button>
+      <button class="boton boton-secundario" id="btnVaciarGaleria">Vaciar galería</button>
+    </div>
+  </div>
+</section>
+
+<section id="subir-media">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Archivos</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:8px;">Subir fotos y videos</h2>
+    <p class="reveal" style="max-width:620px;color:var(--cacao-suave);margin-bottom:32px;">Arrastra o selecciona fotos y videos desde tu dispositivo. Todo se queda en tu navegador.</p>
+    <div class="reveal">
+      <div class="media-dropzone" id="mediaDropzoneGlobal">
+        <div class="icono-grande">📸</div>
+        <p><strong>Arrastra fotos y videos aquí</strong> o haz clic para seleccionar</p>
+        <p style="font-size:0.78rem;margin-top:6px;color:var(--cacao-suave);">JPG, PNG, GIF, WebP, MP4, WebM, MOV — múltiples archivos</p>
+        <div class="media-stats">
+          <div><span id="cuentaFotos">0</span> fotos</div>
+          <div><span id="cuentaVideos">0</span> videos</div>
+        </div>
+      </div>
+    </div>
+    <div class="media-grid reveal" id="mediaGridGlobal"></div>
+  </div>
+</section>
+
+<section id="repertorio">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Lo que tocamos</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:36px;">Un repertorio para cada momento</h2>
+    <div class="genero-grid reveal">
+      <div class="genero-card"><div class="icono">💕</div><h3>Boleros & trova</h3><p>El sonido clásico de trío, para bodas, aniversarios y serenatas.</p></div>
+      <div class="genero-card"><div class="icono">🎉</div><h3>Regional & popular</h3><p>Para que la pista no pare: cumbias, rancheras y éxitos populares.</p></div>
+      <div class="genero-card"><div class="icono">🎸</div><h3>Covers contemporáneos</h3><p>Versiones acústicas de pop actual, adaptadas al estilo del trío.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cotizador">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Precios</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:8px;">Cotiza tu evento</h2>
+    <p class="reveal" style="max-width:620px;color:var(--cacao-suave);margin-bottom:32px;">Selecciona el tipo de servicio, ajusta los detalles y recibe tu cotización personalizada al instante.</p>
+
+    <div class="cot-tabs reveal">
+      <button class="cot-tab activo" data-tab="serenata">🎵 Serenata</button>
+      <button class="cot-tab" data-tab="horas">⏱ Por hora</button>
+      <button class="cot-tab" data-tab="evento">🎉 Por evento</button>
+    </div>
+
+    <div class="reveal">
+      <div class="cot-panel activo" id="panel-serenata">
+        <h3>Serenata</h3>
+        <p style="font-size:0.88rem;color:var(--cacao-suave);margin-bottom:18px;">Incluye 4 canciones base con guitarra y tres voces. Ideal para sorprender a alguien especial.</p>
+        <div class="cot-fila"><label>Número de canciones</label><input type="number" id="cot-canciones" value="4" min="1" max="15"></div>
+        <div class="cot-fila"><label>Fuera de Mérida</label><select id="cot-fuera"><option value="no">No</option><option value="si">Sí (cargo extra $800)</option></select></div>
+        <div class="cot-resultado"><span class="precio-label">Total estimado</span><span class="precio-final" id="cot-precio-serenata">$1,800</span></div>
+      </div>
+
+      <div class="cot-panel" id="panel-horas">
+        <h3>Por hora</h3>
+        <p style="font-size:0.88rem;color:var(--cacao-suave);margin-bottom:18px;">Incluye montaje, sonido y receso. Ideal para bares, restaurantes y eventos que necesitan música de calidad.</p>
+        <div class="cot-fila"><label>Horas</label><input type="number" id="cot-horas" value="1" min="1" max="8"></div>
+        <div class="cot-resultado"><span class="precio-label">Total estimado</span><span class="precio-final" id="cot-precio-horas">$3,000</span></div>
+        <p style="font-size:0.78rem;color:var(--cacao-suave);margin-top:10px;">$3,000 MXN por hora · Música en vivo de primer nivel</p>
+      </div>
+
+      <div class="cot-panel" id="panel-evento">
+        <h3>Evento</h3>
+        <p style="font-size:0.88rem;color:var(--cacao-suave);margin-bottom:18px;">Cada evento es único. Cuéntanos qué tienes en mente y te haremos una propuesta a la medida.</p>
+        <div class="cot-fila"><label>Tipo de evento</label><select id="cot-tipo-evento"><option value="boda">Boda</option><option value="privado">Evento privado</option><option value="bar">Bar / Restaurante</option><option value="cultural">Institucional / Cultural</option></select></div>
+        <div class="cot-fila"><label>Horas estimadas</label><input type="number" id="cot-horas-extra" value="3" min="1" max="8"></div>
+        <div class="cot-resultado"><span class="precio-label">Requiere cotización personalizada</span><span class="precio-final" style="font-size:1.4rem;" id="cot-precio-evento">A convenir</span></div>
+        <p style="font-size:0.78rem;color:var(--cacao-suave);margin-top:10px;">El precio depende del tipo de evento, duración y ubicación. Escríbenos y te cotizamos.</p>
+      </div>
+
+      <details class="cot-form-trigger">
+        <summary>📋 Recibir esta cotización por WhatsApp o email</summary>
+        <form id="formCotizador">
+          <div class="campo"><label for="cot-nombre">Tu nombre</label><input type="text" id="cot-nombre" required></div>
+          <div class="campo"><label for="cot-telefono">WhatsApp / Teléfono</label><input type="tel" id="cot-telefono" required></div>
+          <div class="campo"><label for="cot-email">Email</label><input type="email" id="cot-email"></div>
+          <div class="campo"><label for="cot-mensaje">¿Algo más que debamos saber?</label><textarea id="cot-mensaje" style="min-height:70px;" placeholder="Fecha tentativa, lugar, número de invitados..."></textarea></div>
+          <button type="submit" class="boton boton-primario">Enviar y recibir cotización</button>
+        </form>
+      </details>
+
+      <div class="cot-mensaje-exito" id="cotExito">
+        <b>✅ Cotización enviada</b>
+        <span>Te hemos enviado tu cotización. Guarda este enlace para verla después:</span>
+        <a class="enlace-cot" id="cotEnlace" href="#" target="_blank"></a>
+        <a class="boton boton-secundario" id="cotBotonWa" href="#" target="_blank" style="margin-top:12px;display:inline-flex;">💬 Abrir en WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="agenda">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Disponibilidad</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:8px;">Agenda mensual</h2>
+    <p class="reveal" style="max-width:620px;color:var(--cacao-suave);margin-bottom:32px;">
+      <span style="background:#e8f8f5;padding:2px 8px;border-radius:6px;font-weight:700;color:var(--turquesa-osc);">✓ Disponible</span>
+      <span style="background:#fde8ef;padding:2px 8px;border-radius:6px;font-weight:700;color:var(--rosa-osc);margin-left:8px;">▸ Reservado</span>
+      — haz clic en un día disponible para consultar
+    </p>
+    <div class="cal-wrap reveal">
+      <div class="cal-nav">
+        <button id="calAnt">◀</button>
+        <h3 id="calTitulo"></h3>
+        <button id="calSig">▶</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-leyenda">
+        <span><span class="punto verde"></span> Disponible</span>
+        <span><span class="punto rojo"></span> Reservado</span>
+        <span><span class="punto gris"></span> Consultar</span>
+      </div>
+      <div class="cal-info-evento" id="calInfo">
+        <b id="calInfoFecha"></b>
+        <span id="calInfoTexto"></span>
+        <a class="boton boton-primario" style="margin-top:10px;display:inline-flex;" href="#contacto">Consultar disponibilidad</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="eventos" id="eventos">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Eventos</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:36px;">Próximas presentaciones</h2>
+    <div class="evento-fila reveal">
+      <div class="evento-fecha">12<small>Jul</small></div>
+      <div class="evento-info"><b>Presentación privada</b><span>Mérida, Yucatán</span></div>
+      <span class="evento-tag">Evento privado</span>
+    </div>
+    <div class="evento-fila reveal">
+      <div class="evento-fecha">20<small>Jul</small></div>
+      <div class="evento-info"><b>Noche de trova</b><span>Centro Histórico, Mérida</span></div>
+      <span class="evento-tag">Entrada libre</span>
+    </div>
+    <div class="evento-fila reveal">
+      <div class="evento-fecha">03<small>Ago</small></div>
+      <div class="evento-info"><b>Boda — disponible para agendar la suya</b><span>Yucatán</span></div>
+      <span class="evento-tag">Reservado</span>
+    </div>
+    <p class="reveal" style="margin-top:24px;font-size:0.9rem;color:var(--cacao-suave);">¿Quieres que toquemos en tu evento? <a href="#contacto" style="color:var(--rosa-osc);font-weight:700;text-decoration:underline;">Escríbenos aquí</a>.</p>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="envoltura contacto-grid">
+    <div class="reveal">
+      <span class="eyebrow">Contrataciones</span>
+      <h2 class="titulo-seccion" style="margin-bottom:16px;">Llevemos música a tu evento</h2>
+      <p style="color:var(--cacao-suave);margin-bottom:6px;">Cuando la música llega al alma, despierta emociones que se guardan en el corazón. Ese es el mejor recuerdo, para toda la vida.</p>
+      <p style="color:var(--cacao-suave);margin-top:10px;">Cuéntanos qué tienes en mente y te respondemos con disponibilidad y cotización en menos de 24 horas.</p>
+      <form id="formContacto" style="margin-top:28px;">
+        <div class="campo"><label for="nombre">Tu nombre</label><input type="text" id="nombre" name="nombre" required></div>
+        <div class="campo"><label for="telefono">Teléfono / WhatsApp</label><input type="tel" id="telefono" name="telefono" required></div>
+        <div class="campo">
+          <label for="tipoEvento">Tipo de evento</label>
+          <select id="tipoEvento" name="tipoEvento">
+            <option>Boda</option><option>Evento privado</option><option>Bar / restaurante</option>
+            <option>Evento institucional o cultural</option><option>Otro</option>
+          </select>
+        </div>
+        <div class="campo"><label for="mensaje">Cuéntanos de tu evento</label><textarea id="mensaje" name="mensaje" placeholder="Fecha, lugar, número de invitados..."></textarea></div>
+        <button type="submit" class="boton boton-primario" style="width:100%;justify-content:center;">Enviar solicitud</button>
+      </form>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Síguenos</span>
+      <h2 class="titulo-seccion" style="margin-bottom:16px;font-size:1.8rem;">Más cerca en redes</h2>
+      <a class="canal" href="#" target="_blank" rel="noopener"><div class="marcador">f</div><div><b>Facebook</b><span>Síguenos para ver fechas y clips</span></div></a>
+      <a class="canal" href="#" target="_blank" rel="noopener"><div class="marcador">▶</div><div><b>YouTube</b><span>Videos completos de presentaciones y covers</span></div></a>
+      <a class="canal" href="#" target="_blank" rel="noopener"><div class="marcador">@</div><div><b>Instagram</b><span>Fotos, historias y adelantos de eventos</span></div></a>
+      <a class="canal" id="canalTelefono" href="tel:+529990000000"><div class="marcador">☏</div><div><b>Teléfono / WhatsApp</b><span>Respuesta directa para cotizaciones</span></div></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="envoltura">
+    <span class="marca">Elías Reyes <span>& su Proyecto 7</span></span>
+    <p>Trío musical en Mérida, Yucatán · Disponible para eventos en toda la península</p>
+    <p style="margin-top:6px;">© 2026 Elías Reyes y su Proyecto 7. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<script>
+(()=>{
+
+  document.documentElement.classList.add('js-activo');
+  const observador = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observador.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el => observador.observe(el));
+  setTimeout(()=>{ document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')); }, 2000);
+
+  /* menú móvil */
+  const btnMenu = document.getElementById('btnMenu');
+  const menuMovil = document.getElementById('menuMovil');
+  btnMenu.addEventListener('click', () => menuMovil.classList.toggle('abierto'));
+  menuMovil.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menuMovil.classList.remove('abierto')));
+
+  /* carrusel */
+  const track = document.getElementById('carruselTrack');
+  const dotsWrap = document.getElementById('carruselDots');
+  const slides = track.children.length;
+  let actual = 0;
+  for(let i=0;i<slides;i++){
+    const dot = document.createElement('button');
+    if(i===0) dot.classList.add('activo');
+    dot.addEventListener('click', () => irASlide(i));
+    dotsWrap.appendChild(dot);
+  }
+  function irASlide(i){
+    actual = i;
+    track.style.transform = `translateX(-${i*100}%)`;
+    [...dotsWrap.children].forEach((d,idx)=>d.classList.toggle('activo', idx===i));
+  }
+  setInterval(()=>{ irASlide((actual+1)%slides); }, 4000);
+
+  /* reproductor */
+  const videoPrincipal = document.getElementById('videoPrincipal');
+  document.querySelectorAll('.clip-mini').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.clip-mini').forEach(b=>b.classList.remove('activo'));
+      btn.classList.add('activo');
+      const id = btn.dataset.video;
+      videoPrincipal.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    });
+  });
+
+  /* dropzones cancionero */
+  function configurarDropzone(dropId, listaId){
+    const drop = document.getElementById(dropId);
+    const lista = document.getElementById(listaId);
+    const input = document.createElement('input');
+    input.type = 'file'; input.multiple = true; input.style.display = 'none';
+    drop.appendChild(input);
+    function agregarArchivos(files){
+      [...files].forEach(f=>{
+        const item = document.createElement('div');
+        item.className = 'archivo-item';
+        item.innerHTML = `<span>📎 ${f.name}</span>`;
+        const quitar = document.createElement('button');
+        quitar.className = 'quitar'; quitar.textContent = '✕';
+        quitar.addEventListener('click', ()=>item.remove());
+        item.appendChild(quitar);
+        lista.appendChild(item);
+      });
+    }
+    drop.addEventListener('click', ()=>input.click());
+    input.addEventListener('change', ()=>agregarArchivos(input.files));
+    drop.addEventListener('dragover', e=>{e.preventDefault();drop.classList.add('arrastrando');});
+    drop.addEventListener('dragleave', ()=>drop.classList.remove('arrastrando'));
+    drop.addEventListener('drop', e=>{
+      e.preventDefault(); drop.classList.remove('arrastrando');
+      agregarArchivos(e.dataTransfer.files);
+    });
+  }
+  configurarDropzone('dropLetras','listaLetras');
+  configurarDropzone('dropPartituras','listaPartituras');
+
+  /* grabación */
+  const btnActivar = document.getElementById('btnActivar');
+  const btnGrabar = document.getElementById('btnGrabar');
+  const btnDescargar = document.getElementById('btnDescargar');
+  const videoPreview = document.getElementById('videoPreview');
+  const videoSubido = document.getElementById('videoSubido');
+  const grabPlaceholder = document.getElementById('grabPlaceholder');
+  const grabTimer = document.getElementById('grabTimer');
+  const videoSubidoInfo = document.getElementById('videoSubidoInfo');
+  const inputVideoFile = document.getElementById('inputVideoFile');
+
+  let stream = null;
+  let mediaRecorder = null;
+  let chunks = [];
+  let segundos = 0;
+  let intervalo = null;
+  const DURACION_MAX = 60;
+
+  inputVideoFile.addEventListener('change', function(){
+    const file = this.files[0];
+    if(!file) return;
+    const url = URL.createObjectURL(file);
+    videoSubido.src = url;
+    videoSubido.style.display = 'block';
+    videoSubidoInfo.style.display = 'block';
+    videoSubidoInfo.textContent = '📁 ' + file.name;
+    videoPreview.style.display = 'none';
+    grabPlaceholder.style.display = 'none';
+    if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
+    btnActivar.style.display = 'inline-flex';
+    btnGrabar.style.display = 'none';
+  });
+
+  btnActivar.addEventListener('click', async ()=>{
+    try{
+      stream = await navigator.mediaDevices.getUserMedia({video:true, audio:true});
+      videoPreview.srcObject = stream;
+      videoPreview.style.display = 'block';
+      videoSubido.style.display = 'none';
+      videoSubidoInfo.style.display = 'none';
+      grabPlaceholder.style.display = 'none';
+      btnActivar.style.display = 'none';
+      btnGrabar.style.display = 'inline-flex';
+      videoSubido.pause();
+      videoSubido.src = '';
+    }catch(err){
+      grabPlaceholder.style.display = 'block';
+      grabPlaceholder.innerHTML = 'No pudimos acceder a tu cámara o micrófono.<br>Revisa los permisos de tu navegador e intenta de nuevo.';
+    }
+  });
+
+  btnGrabar.addEventListener('click', ()=>{
+    if(!stream) return;
+    chunks = [];
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
+    mediaRecorder.onstop = ()=>{
+      const blob = new Blob(chunks, {type:'video/webm'});
+      const url = URL.createObjectURL(blob);
+      btnDescargar.href = url;
+      btnDescargar.download = 'mi-video-con-elias-reyes.webm';
+      btnDescargar.style.display = 'inline-flex';
+      grabTimer.style.display = 'none';
+      btnGrabar.textContent = '● Grabar de nuevo (60 seg)';
+      btnGrabar.disabled = false;
+    };
+    mediaRecorder.start();
+    segundos = 0;
+    grabTimer.style.display = 'block';
+    btnGrabar.disabled = true;
+    intervalo = setInterval(()=>{
+      segundos++;
+      const m = String(Math.floor(segundos/60)).padStart(2,'0');
+      const s = String(segundos%60).padStart(2,'0');
+      grabTimer.textContent = `${m}:${s}`;
+      if(segundos >= DURACION_MAX){
+        clearInterval(intervalo);
+        mediaRecorder.stop();
+      }
+    }, 1000);
+  });
+
+  /* galería interactiva */
+  const galeriaGrid = document.getElementById('galeriaGrid');
+  const btnAgregarSlot = document.getElementById('btnAgregarSlot');
+  const btnVaciarGaleria = document.getElementById('btnVaciarGaleria');
+  let slotCounter = 6;
+
+  function configurarSlot(slot){
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*,video/*';
+    input.style.display = 'none';
+    slot.appendChild(input);
+
+    const span = slot.querySelector('span');
+    const iconoCarga = slot.querySelector('.icono-carga');
+    let mediaUrls = [];
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'btn-remover';
+    removeBtn.textContent = '✕';
+    removeBtn.addEventListener('click', function(e){ e.stopPropagation(); limpiarSlot(); });
+    slot.appendChild(removeBtn);
+
+    function limpiarSlot(){
+      mediaUrls.forEach(u => URL.revokeObjectURL(u));
+      mediaUrls = [];
+      const el = slot.querySelector('img, video');
+      if(el) el.remove();
+      slot.style.background = '';
+      slot.style.border = '3px solid var(--cacao)';
+      span.textContent = slot.dataset.originalText || 'Espacio';
+      removeBtn.style.display = 'none';
+      if(iconoCarga) iconoCarga.style.display = 'block';
+    }
+
+    slot.addEventListener('click', (e) => { if(e.target === removeBtn) return; input.click(); });
+    input.addEventListener('change', function(){
+      const file = this.files[0];
+      if(!file) return;
+      const isVideo = file.type.startsWith('video/');
+      const url = URL.createObjectURL(file);
+      mediaUrls.push(url);
+      const old = slot.querySelector('img, video');
+      if(old) old.remove();
+      const el = isVideo ? document.createElement('video') : document.createElement('img');
+      el.src = url;
+      if(isVideo){ el.muted = true; el.loop = true; el.autoplay = true; }
+      slot.style.background = 'none';
+      slot.style.border = '3px solid var(--turquesa)';
+      slot.appendChild(el);
+      if(iconoCarga) iconoCarga.style.display = 'none';
+      removeBtn.style.display = 'flex';
+      span.textContent = file.name.length > 22 ? file.name.slice(0,19)+'...' : file.name;
+    });
+    slot.addEventListener('dragover', e => { e.preventDefault(); slot.style.borderColor = 'var(--rosa)'; });
+    slot.addEventListener('dragleave', () => { slot.style.borderColor = ''; });
+    slot.addEventListener('drop', e => {
+      e.preventDefault();
+      slot.style.borderColor = '';
+      const file = e.dataTransfer.files[0];
+      if(file && (file.type.startsWith('image/') || file.type.startsWith('video/'))){
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        input.files = dt.files;
+        input.dispatchEvent(new Event('change'));
+      }
+    });
+  }
+
+  document.querySelectorAll('.foto').forEach(slot => {
+    slot.dataset.originalText = slot.querySelector('span').textContent;
+    configurarSlot(slot);
+  });
+
+  btnAgregarSlot.addEventListener('click', () => {
+    const slot = document.createElement('div');
+    slot.className = 'foto';
+    slot.dataset.slot = slotCounter++;
+    slot.innerHTML = `<span>Nuevo espacio</span><div class="icono-carga">+</div>`;
+    slot.dataset.originalText = 'Nuevo espacio';
+    configurarSlot(slot);
+    galeriaGrid.appendChild(slot);
+  });
+
+  btnVaciarGaleria.addEventListener('click', () => {
+    document.querySelectorAll('.foto').forEach(slot => {
+      const input = slot.querySelector('input[type="file"]');
+      if(input) input.value = '';
+      const old = slot.querySelector('img, video');
+      if(old) old.remove();
+      slot.style.background = '';
+      slot.style.border = '3px solid var(--cacao)';
+      const span = slot.querySelector('span');
+      if(span) span.textContent = slot.dataset.originalText || 'Espacio';
+      const iconoCarga = slot.querySelector('.icono-carga');
+      if(iconoCarga) iconoCarga.style.display = 'block';
+      const removeBtn = slot.querySelector('.btn-remover');
+      if(removeBtn) removeBtn.style.display = 'none';
+    });
+  });
+
+  /* dropzone media global */
+  const mediaDropzone = document.getElementById('mediaDropzoneGlobal');
+  const mediaGrid = document.getElementById('mediaGridGlobal');
+  const cuentaFotos = document.getElementById('cuentaFotos');
+  const cuentaVideos = document.getElementById('cuentaVideos');
+  let fotosCount = 0, videosCount = 0;
+
+  const mediaInput = document.createElement('input');
+  mediaInput.type = 'file';
+  mediaInput.accept = 'image/*,video/*';
+  mediaInput.multiple = true;
+  mediaInput.style.display = 'none';
+  mediaDropzone.appendChild(mediaInput);
+
+  function actualizarContadores(){
+    cuentaFotos.textContent = fotosCount;
+    cuentaVideos.textContent = videosCount;
+  }
+
+  function agregarMedia(items){
+    [...items].forEach(file => {
+      if(!file.type.startsWith('image/') && !file.type.startsWith('video/')) return;
+      const isVideo = file.type.startsWith('video/');
+      const url = URL.createObjectURL(file);
+      const item = document.createElement('div');
+      item.className = 'media-item';
+      if(isVideo){
+        const vid = document.createElement('video');
+        vid.src = url; vid.muted = true; vid.loop = true; vid.autoplay = true;
+        item.appendChild(vid); videosCount++;
+      } else {
+        const img = document.createElement('img');
+        img.src = url; item.appendChild(img); fotosCount++;
+      }
+      const quitar = document.createElement('button');
+      quitar.className = 'btn-quitar-media';
+      quitar.textContent = '✕';
+      quitar.addEventListener('click', () => {
+        URL.revokeObjectURL(url);
+        item.remove();
+        if(isVideo) videosCount--; else fotosCount--;
+        actualizarContadores();
+      });
+      item.appendChild(quitar);
+      mediaGrid.appendChild(item);
+      actualizarContadores();
+    });
+  }
+
+  mediaDropzone.addEventListener('click', () => mediaInput.click());
+  mediaInput.addEventListener('change', () => { agregarMedia(mediaInput.files); mediaInput.value = ''; });
+  mediaDropzone.addEventListener('dragover', e => { e.preventDefault(); mediaDropzone.classList.add('arrastrando'); });
+  mediaDropzone.addEventListener('dragleave', () => mediaDropzone.classList.remove('arrastrando'));
+  mediaDropzone.addEventListener('drop', e => {
+    e.preventDefault();
+    mediaDropzone.classList.remove('arrastrando');
+    agregarMedia(e.dataTransfer.files);
+  });
+
+  /* cotizador */
+  const PRECIOS = {
+    serenata: { base: 1800, por_cancion_extra: 300, canciones_base: 4, fuera_merida: 800 },
+    horas: { por_hora: 3000 }
+  };
+  let WHATSAPP_NUM = '529990000000';
+  let ultimoTotal = 0;
+
+  fetch('/api/config').then(r => r.json()).then(cfg => {
+    if(cfg.whatsapp){
+      WHATSAPP_NUM = cfg.whatsapp;
+      const tel = document.getElementById('canalTelefono');
+      if(tel) tel.href = 'tel:+' + cfg.whatsapp;
+    }
+  }).catch(() => {});
+
+  function calcularPrecio(){
+    const tab = document.querySelector('.cot-tab.activo');
+    if(!tab) return;
+    const tipo = tab.dataset.tab;
+    let total = 0;
+    if(tipo === 'serenata'){
+      const canciones = parseInt(document.getElementById('cot-canciones').value) || 4;
+      const fuera = document.getElementById('cot-fuera').value;
+      total = PRECIOS.serenata.base + Math.max(0, canciones - PRECIOS.serenata.canciones_base) * PRECIOS.serenata.por_cancion_extra;
+      if(fuera === 'si') total += PRECIOS.serenata.fuera_merida;
+      document.getElementById('cot-precio-serenata').textContent = '$' + total.toLocaleString('es-MX');
+    } else if(tipo === 'horas'){
+      const horas = parseInt(document.getElementById('cot-horas').value) || 1;
+      total = horas * PRECIOS.horas.por_hora;
+      document.getElementById('cot-precio-horas').textContent = '$' + total.toLocaleString('es-MX');
+    } else if(tipo === 'evento'){
+      document.getElementById('cot-precio-evento').textContent = 'A convenir';
+      total = 0;
+    }
+    ultimoTotal = total;
+    return total;
+  }
+
+  document.querySelectorAll('.cot-tab').forEach(tab => {
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.cot-tab').forEach(t => t.classList.remove('activo'));
+      document.querySelectorAll('.cot-panel').forEach(p => p.classList.remove('activo'));
+      this.classList.add('activo');
+      document.getElementById('panel-' + this.dataset.tab).classList.add('activo');
+      calcularPrecio();
+    });
+  });
+
+  document.querySelectorAll('#cot-canciones, #cot-fuera, #cot-horas, #cot-tipo-evento, #cot-horas-extra').forEach(el => {
+    el.addEventListener('input', calcularPrecio);
+    el.addEventListener('change', calcularPrecio);
+  });
+  calcularPrecio();
+
+  const formCot = document.getElementById('formCotizador');
+  formCot.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const tab = document.querySelector('.cot-tab.activo');
+    const tipo = tab ? tab.dataset.tab : 'serenata';
+    const total = calcularPrecio();
+
+    let detalles = {};
+    if(tipo === 'serenata'){
+      detalles = { canciones: document.getElementById('cot-canciones').value, fuera_merida: document.getElementById('cot-fuera').value === 'si' ? 'Sí' : 'No' };
+    } else if(tipo === 'horas'){
+      detalles = { horas: document.getElementById('cot-horas').value };
+    } else if(tipo === 'evento'){
+      detalles = {
+        tipo_evento: document.getElementById('cot-tipo-evento').options[document.getElementById('cot-tipo-evento').selectedIndex].text,
+        horas_estimadas: document.getElementById('cot-horas-extra').value
+      };
+    }
+
+    const boton = formCot.querySelector('button');
+    const textoOrig = boton.textContent;
+    boton.textContent = 'Enviando...';
+    boton.disabled = true;
+
+    try {
+      const resp = await fetch('/api/cotizar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cliente_nombre: document.getElementById('cot-nombre').value,
+          cliente_telefono: document.getElementById('cot-telefono').value,
+          cliente_email: document.getElementById('cot-email').value,
+          tipo_servicio: tipo,
+          detalles,
+          precio_total: total,
+          moneda: 'MXN',
+          mensaje: document.getElementById('cot-mensaje').value
+        })
+      });
+      const data = await resp.json();
+      if(data.error) throw new Error(data.error);
+
+      document.getElementById('cotExito').style.display = 'block';
+      document.getElementById('cotEnlace').textContent = data.enlace;
+      document.getElementById('cotEnlace').href = data.enlace;
+
+      const precioTexto = tipo === 'evento' ? 'a convenir' : '$' + total.toLocaleString('es-MX') + ' MXN';
+      const msg = encodeURIComponent('¡Hola! Recibí mi cotización de ' + tipo + ' por ' + precioTexto + '. Quiero contratar.');
+      const waUrl = 'https://wa.me/' + WHATSAPP_NUM + '?text=' + msg;
+      document.getElementById('cotBotonWa').href = waUrl;
+
+      formCot.querySelector('details').open = false;
+      formCot.reset();
+    } catch(err) {
+      alert('Error al enviar: ' + err.message);
+    }
+    boton.textContent = textoOrig;
+    boton.disabled = false;
+  });
+
+  /* calendario */
+  const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  let calFecha = new Date();
+  const reservados = {};
+
+  function generarReservados(mes, año){
+    const key = mes + '-' + año;
+    if(reservados[key]) return;
+    reservados[key] = {};
+    const diasEnMes = new Date(año, mes + 1, 0).getDate();
+    const disponibles = [5,6,10,12,13,14,18,19,20,25,26,27];
+    const reserva = [2,7,15,21,28];
+    for(let d = 1; d <= diasEnMes; d++){
+      if(disponibles.includes(d)) reservados[key][d] = 'disponible';
+      else if(reserva.includes(d)) reservados[key][d] = 'reservado';
+      else reservados[key][d] = 'consultar';
+    }
+    reservados[key]._eventos = {
+      2: 'Evento privado · Mérida', 6: 'Disponible — reserva rápida', 7: 'Noche de trova · Centro',
+      10: 'Disponible — fin de semana', 12: 'Disponible — aniversario', 14: 'Disponible — serenatas',
+      15: 'Boda · Hacienda', 18: 'Disponible — horario libre', 20: 'Disponible — fin de semana',
+      21: 'Evento cultural · Teatro', 25: 'Disponible — fecha ideal', 27: 'Disponible — última del mes',
+      28: 'Evento privado · Casa'
+    };
+  }
+
+  function renderCalendario(){
+    const año = calFecha.getFullYear();
+    const mes = calFecha.getMonth();
+    document.getElementById('calTitulo').textContent = meses[mes] + ' ' + año;
+    const primerDia = new Date(año, mes, 1).getDay();
+    const diasEnMes = new Date(año, mes + 1, 0).getDate();
+    const diasEnMesAnt = new Date(año, mes, 0).getDate();
+    generarReservados(mes, año);
+    const data = reservados[mes + '-' + año] || {};
+    const eventos = data._eventos || {};
+
+    let html = '<div class="cal-dia-nombre">Dom</div><div class="cal-dia-nombre">Lun</div><div class="cal-dia-nombre">Mar</div><div class="cal-dia-nombre">Mié</div><div class="cal-dia-nombre">Jue</div><div class="cal-dia-nombre">Vie</div><div class="cal-dia-nombre">Sáb</div>';
+    for(let d = diasEnMesAnt - primerDia + 1; d <= diasEnMesAnt; d++){
+      html += '<div class="cal-dia otro-mes">' + d + '</div>';
+    }
+    for(let d = 1; d <= diasEnMes; d++){
+      const estado = data[d] || 'consultar';
+      const evento = eventos[d] || '';
+      html += '<div class="cal-dia ' + estado + '" data-dia="' + d + '" data-evento="' + evento + '">' + d + '</div>';
+    }
+    const resto = 42 - (primerDia + diasEnMes);
+    for(let d = 1; d <= resto; d++){
+      html += '<div class="cal-dia otro-mes">' + d + '</div>';
+    }
+    document.getElementById('calGrid').innerHTML = html;
+
+    document.querySelectorAll('.cal-dia.disponible, .cal-dia.consultar').forEach(el => {
+      el.addEventListener('click', function(){
+        const info = document.getElementById('calInfo');
+        info.classList.add('visible');
+        document.getElementById('calInfoFecha').textContent = this.dataset.dia + ' de ' + meses[mes] + ' ' + año;
+        document.getElementById('calInfoTexto').textContent = this.dataset.evento || 'Disponible para reservar. Contáctanos para apartarlo.';
+      });
+    });
+  }
+
+  document.getElementById('calAnt').addEventListener('click', () => { calFecha.setMonth(calFecha.getMonth() - 1); renderCalendario(); });
+  document.getElementById('calSig').addEventListener('click', () => { calFecha.setMonth(calFecha.getMonth() + 1); renderCalendario(); });
+  renderCalendario();
+
+  /* formulario de contacto */
+  const form = document.getElementById('formContacto');
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const boton = form.querySelector('button');
+    const textoOriginal = boton.textContent;
+    boton.textContent = 'Solicitud enviada ✓';
+    boton.style.background = 'var(--turquesa)';
+    boton.style.boxShadow = '0 4px 0 var(--turquesa-osc)';
+    setTimeout(()=>{
+      boton.textContent = textoOriginal;
+      boton.style.background = '';
+      boton.style.boxShadow = '';
+      form.reset();
+    }, 2800);
+  });
+
+  /* === CHAT WIDGET === */
+  function generarSessionId(){
+    let sid = localStorage.getItem('chat_session_id');
+    if(!sid){ sid = 'chat_' + Date.now() + '_' + Math.random().toString(36).slice(2,8); localStorage.setItem('chat_session_id', sid); }
+    return sid;
+  }
+  const chBtn = document.getElementById('chBtn');
+  const chPanel = document.getElementById('chPanel');
+  const chMsgs = document.getElementById('chMsgs');
+  const chInput = document.getElementById('chInput');
+  const chSend = document.getElementById('chSend');
+  const chTyping = document.getElementById('chTyping');
+  const chNotif = document.getElementById('chNotif');
+  const chAcciones = document.getElementById('chAcciones');
+  let chAbierto = false;
+  let chMetadata = {};
+
+  function agregarMsg(texto, rol){
+    const div = document.createElement('div');
+    div.className = 'msg ' + rol;
+    div.textContent = texto;
+    chMsgs.appendChild(div);
+    chMsgs.scrollTop = chMsgs.scrollHeight;
+  }
+  function mostrarTyping(mostrar){
+    chTyping.classList.toggle('activo', mostrar);
+    if(mostrar) chMsgs.scrollTop = chMsgs.scrollHeight;
+  }
+
+  async function enviarMensaje(){
+    const texto = chInput.value.trim();
+    if(!texto) return;
+    chInput.value = '';
+    agregarMsg(texto, 'usuario');
+    mostrarTyping(true);
+    try{
+      const resp = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ mensaje: texto, session_id: generarSessionId(), metadata: chMetadata })
+      });
+      const data = await resp.json();
+      if(data.error) throw new Error(data.error);
+      chMetadata = data.metadata || {};
+      mostrarTyping(false);
+      agregarMsg(data.respuesta, 'asistente');
+      chAcciones.style.display = (chMetadata.paso_captura > 0) ? 'none' : 'flex';
+      if(chMetadata.paso_captura === -1) chMetadata.paso_captura = undefined;
+    }catch(err){
+      mostrarTyping(false);
+      agregarMsg('Lo siento, hubo un error. Intenta de nuevo.', 'asistente');
+    }
+  }
+
+  chBtn.addEventListener('click', ()=>{
+    chAbierto = !chAbierto;
+    chPanel.classList.toggle('abierto', chAbierto);
+    chNotif.style.display = 'none';
+    if(chAbierto && chMsgs.children.length === 0){
+      agregarMsg('🎵 ¡Hola! Soy el asistente virtual de Elías Reyes y su Proyecto 7.\n\nPregúntame sobre precios, eventos o déjame tus datos para contactarte.', 'asistente');
+    }
+    if(chAbierto) chInput.focus();
+  });
+
+  document.getElementById('chCerrar').addEventListener('click', ()=>{ chAbierto = false; chPanel.classList.remove('abierto'); });
+  chSend.addEventListener('click', enviarMensaje);
+  chInput.addEventListener('keydown', e => { if(e.key === 'Enter') enviarMensaje(); });
+
+  setTimeout(()=>{
+    if(!localStorage.getItem('chat_saludo')){
+      chNotif.style.display = 'flex';
+      localStorage.setItem('chat_saludo', '1');
+    }
+  }, 5000);
+
+  document.querySelectorAll('.ch-acciones button').forEach(btn => {
+    btn.addEventListener('click', ()=>{ chInput.value = btn.dataset.msg; enviarMensaje(); });
+  });
+
+})();
+</script>
+
+<div class="ch-btn" id="chBtn" aria-label="Abrir chat">
+  💬
+  <span class="ch-notif" id="chNotif">1</span>
+</div>
+
+<div class="ch-panel" id="chPanel">
+  <div class="ch-header">
+    <div>
+      <h3>🎵 Asistente Proyecto 7</h3>
+      <small>Online · Responde al instante</small>
+    </div>
+    <button id="chCerrar">✕</button>
+  </div>
+  <div class="ch-msgs" id="chMsgs"></div>
+  <div class="ch-typing" id="chTyping"><span></span><span></span><span></span></div>
+  <div class="ch-acciones" id="chAcciones">
+    <button data-msg="¿Cuánto cuesta una serenata?">🎵 Serenata</button>
+    <button data-msg="¿Cuánto cuesta por hora?">⏱ Por hora</button>
+    <button data-msg="¿Qué tipos de eventos cubren?">🎉 Eventos</button>
+    <button data-msg="Quiero contratarlos">📩 Contratar</button>
+    <button data-msg="¿Qué repertorio tienen?">🎸 Repertorio</button>
+    <button data-msg="¿Dónde están ubicados?">📍 Ubicación</button>
+  </div>
+  <div class="ch-input-wrap">
+    <input type="text" id="chInput" placeholder="Escribe tu mensaje..." autocomplete="off">
+    <button id="chSend">➤</button>
+  </div>
+</div>
+
+</body>
+</html>
