@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const db = require('./db');
 
@@ -8,6 +9,16 @@ const PORT = process.env.PORT || 3001;
 const WHATSAPP_NUM = process.env.WHATSAPP_NUM || '529990000000';
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || Math.random().toString(36).slice(2, 14);
+
+function archivoPublico(nombre) {
+  const enPublic = path.join(__dirname, 'public', nombre);
+  return fs.existsSync(enPublic) ? enPublic : path.join(__dirname, nombre);
+}
+
+function vistaCotizacion() {
+  const enViews = path.join(__dirname, 'views', 'cotizacion.ejs');
+  return fs.existsSync(enViews) ? enViews : path.join(__dirname, 'cotizacion.ejs');
+}
 
 function authAdmin(req, res, next) {
   const cab = req.headers.authorization || '';
@@ -27,7 +38,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // ========== PÁGINAS ==========
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(archivoPublico('index.html'));
 });
 
 app.get('/api/config', (req, res) => {
@@ -64,7 +75,7 @@ app.get('/api/cotizar/:token', async (req, res) => {
 app.get('/cotizacion/:token', async (req, res) => {
   const cot = await db.getCotizacion(req.params.token);
   if (!cot) return res.status(404).send('Cotización no encontrada');
-  res.render('cotizacion', { cot, WHATSAPP_NUM });
+  res.render(vistaCotizacion(), { cot, WHATSAPP_NUM });
 });
 
 // ========== CHATBOT ==========
@@ -249,7 +260,7 @@ app.get('/api/chat', async (req, res) => {
 app.use(['/admin/leads', '/api/admin'], authAdmin);
 
 app.get('/admin/leads', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+  res.sendFile(archivoPublico('admin.html'));
 });
 
 app.get('/api/admin/cotizaciones', async (req, res) => {
