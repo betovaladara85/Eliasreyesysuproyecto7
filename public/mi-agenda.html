@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi agenda · Proyecto 7</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--sol:#FFC93C;--sol-suave:#FFE39B;--rosa:#E0457B;--rosa-osc:#A82E58;--turquesa:#00A9A5;--turquesa-osc:#067572;--cacao:#3D2400;--cacao-suave:#6B4423;--hueso:#FFFAF0;--crema:#FFF3D6;--linea:rgba(61,36,0,0.14);--display:'Fraunces',serif;--cuerpo:'Work Sans',sans-serif;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--hueso);color:var(--cacao);font-family:var(--cuerpo);line-height:1.6;min-height:100vh;padding-bottom:80px;}
+    .app-bar{position:sticky;top:0;z-index:50;background:linear-gradient(150deg,var(--cacao),#5a3510);color:var(--hueso);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .app-bar .marca{font-family:var(--display);font-size:1.1rem;font-weight:700;}
+    .app-bar .usuario{font-size:0.82rem;color:var(--sol-suave);}
+    .app-bar .btn-salir{background:var(--rosa);border:none;color:#fff;padding:8px 14px;border-radius:50px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:var(--cuerpo);}
+    .seccion{padding:20px 16px;}
+    .seccion h2{font-family:var(--display);font-size:1.3rem;font-weight:700;margin-bottom:4px;}
+    .seccion .sub{font-size:0.82rem;color:var(--cacao-suave);margin-bottom:16px;}
+    .evento-card{background:#fff;border:2px solid var(--cacao);border-radius:16px;padding:18px;margin-bottom:14px;position:relative;transition:border-color .2s;}
+    .evento-card.nuevo{border-color:var(--rosa);box-shadow:0 0 0 3px rgba(224,69,123,0.2);}
+    .evento-card .fecha-badge{position:absolute;top:-10px;right:14px;background:var(--rosa);color:#fff;border-radius:50px;padding:4px 12px;font-size:0.72rem;font-weight:700;text-transform:uppercase;}
+    .evento-card .fecha-badge.completado{background:var(--turquesa);}
+    .evento-card .fecha-badge.cancelado{background:var(--cacao-suave);}
+    .evento-card .tipo{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--rosa-osc);margin-bottom:6px;}
+    .evento-card h3{font-family:var(--display);font-size:1.15rem;font-weight:700;margin-bottom:10px;}
+    .evento-card .detalles{display:flex;flex-direction:column;gap:6px;font-size:0.88rem;color:var(--cacao-suave);}
+    .evento-card .detalles .fila{display:flex;gap:8px;align-items:flex-start;}
+    .evento-card .detalles .etq{min-width:100px;font-weight:700;color:var(--cacao);}
+    .evento-card .canciones{background:var(--crema);border-radius:10px;padding:10px 14px;margin-top:10px;font-size:0.85rem;color:var(--cacao);}
+    .evento-card .canciones b{display:block;margin-bottom:4px;font-size:0.78rem;color:var(--rosa-osc);text-transform:uppercase;letter-spacing:0.06em;}
+    .evento-card .btn-leido{display:block;margin-top:12px;background:transparent;border:2px solid var(--turquesa);color:var(--turquesa-osc);padding:8px;border-radius:50px;font-weight:700;font-size:0.82rem;cursor:pointer;text-align:center;width:100%;font-family:var(--cuerpo);}
+    .evento-card .btn-leido:hover{background:var(--turquesa);color:#fff;}
+    .evento-card.leido .btn-leido{display:none;}
+    .vacio{text-align:center;padding:40px 16px;color:var(--cacao-suave);font-size:0.95rem;}
+    .vacio .icono{font-size:2.5rem;margin-bottom:8px;}
+    .notif-bar{position:fixed;bottom:0;left:0;right:0;background:var(--cacao);color:var(--hueso);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;z-index:50;border-top:2px solid var(--sol);}
+    .notif-bar .badge{background:var(--rosa);color:#fff;border-radius:50px;padding:2px 10px;font-size:0.78rem;font-weight:700;}
+    .notif-bar .btn-notif{background:var(--rosa);border:none;color:#fff;padding:10px 18px;border-radius:50px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:var(--cuerpo);}
+    .filtro-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+    .filtro-tab{padding:8px 16px;border-radius:50px;border:2px solid var(--cacao);background:var(--hueso);font-size:0.8rem;font-weight:700;cursor:pointer;font-family:var(--cuerpo);}
+    .filtro-tab.activo{background:var(--rosa);color:#fff;border-color:var(--rosa);}
+    .filtro-tab:hover:not(.activo){background:var(--sol-suave);}
+    .turnstile{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:100;background:var(--hueso);padding:20px;border-radius:16px;border:2px solid var(--cacao);text-align:center;display:none;}
+    .turnstile.visible{display:block;}
+  </style>
+</head>
+<body>
+  <div class="app-bar">
+    <div>
+      <div class="marca">Proyecto 7</div>
+      <div class="usuario" id="nombreUsuario"></div>
+    </div>
+    <button class="btn-salir" onclick="localStorage.removeItem('trio_token');localStorage.removeItem('trio_nombre');localStorage.removeItem('trio_rol');window.location.href='/login'">Salir</button>
+  </div>
+
+  <div class="seccion">
+    <h2>📅 Mis eventos</h2>
+    <div class="sub">Próximas presentaciones del trío</div>
+
+    <div class="filtro-tabs">
+      <button class="filtro-tab activo" data-filtro="proximos">Próximos</button>
+      <button class="filtro-tab" data-filtro="todos">Todos</button>
+      <button class="filtro-tab" data-filtro="completados">Completados</button>
+    </div>
+
+    <div id="listaEventos"><div class="vacio"><div class="icono">🎵</div>Cargando eventos...</div></div>
+  </div>
+
+  <div class="notif-bar">
+    <span id="notifTexto">🔔 Conectado</span>
+    <button class="btn-notif" id="btnActivarNotif" onclick="activarNotificaciones()">🔔 Activar alertas</button>
+  </div>
+
+  <script>
+    const TOKEN = localStorage.getItem('trio_token');
+    const NOMBRE = localStorage.getItem('trio_nombre');
+    if(!TOKEN) window.location.href = '/login';
+    document.getElementById('nombreUsuario').textContent = NOMBRE || '';
+
+    let notifPerm = 'default';
+    let eventosVistos = new Set();
+    let filtroActual = 'proximos';
+    let todosLosEventos = [];
+
+    async function apiFetch(url, opts = {}) {
+      const res = await fetch(url, { ...opts, headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', ...opts.headers } });
+      if(res.status === 401) { localStorage.removeItem('trio_token'); window.location.href = '/login'; return null; }
+      return res.json();
+    }
+
+    function fmtFecha(iso) {
+      if(!iso) return '—';
+      const d = new Date(iso + 'T12:00:00');
+      return d.toLocaleDateString('es-MX', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function diasRestantes(fecha) {
+      const hoy = new Date(); hoy.setHours(0,0,0,0);
+      const ev = new Date(fecha + 'T12:00:00'); ev.setHours(0,0,0,0);
+      const diff = Math.ceil((ev - hoy) / (1000*60*60*24));
+      return diff;
+    }
+
+    function renderEventos() {
+      const cont = document.getElementById('listaEventos');
+      let lista = [...todosLosEventos];
+
+      if(filtroActual === 'proximos') {
+        const hoy = new Date(); hoy.setHours(0,0,0,0);
+        lista = lista.filter(e => {
+          const ev = new Date(e.fecha + 'T12:00:00');
+          return ev >= hoy && e.estado !== 'cancelado';
+        });
+      } else if(filtroActual === 'completados') {
+        lista = lista.filter(e => e.estado === 'completado');
+      }
+
+      if(!lista.length) {
+        cont.innerHTML = '<div class="vacio"><div class="icono">🎵</div>No hay eventos para mostrar</div>';
+        return;
+      }
+
+      cont.innerHTML = lista.map(e => {
+        const esNuevo = !e.leido_por || !e.leido_por.includes(NOMBRE);
+        const restantes = diasRestantes(e.fecha);
+        const badge = e.estado === 'cancelado' ? 'cancelado' : e.estado === 'completado' ? 'completado' : '';
+        const badgeText = e.estado === 'cancelado' ? 'Cancelado' : e.estado === 'completado' ? 'Completado' : restantes === 0 ? 'Hoy' : restantes === 1 ? 'Mañana' : `En ${restantes} días`;
+        const tipoIcono = { serenata: '🎵', horas: '⏱', evento: '🎉' }[e.tipo_servicio] || '🎶';
+
+        return `
+        <div class="evento-card ${esNuevo ? 'nuevo' : ''} ${e.leido_por && e.leido_por.includes(NOMBRE) ? 'leido' : ''}">
+          <div class="fecha-badge ${badge}">${badgeText}</div>
+          <div class="tipo">${tipoIcono} ${e.tipo_servicio === 'serenata' ? 'Serenata' : e.tipo_servicio === 'horas' ? 'Por hora' : 'Evento'}</div>
+          <h3>${e.cliente_nombre}</h3>
+          <div class="detalles">
+            <div class="fila"><span class="etq">📅 Fecha</span>${fmtFecha(e.fecha)}</div>
+            <div class="fila"><span class="etq">🕐 Evento</span>${e.hora_evento || 'Por definir'}</div>
+            <div class="fila"><span class="etq">⏰ Encuentro</span>${e.hora_encuentro || 'Por definir'}</div>
+            <div class="fila"><span class="etq">📍 Lugar</span>${e.lugar || 'Por definir'}</div>
+            ${e.horas_contratadas ? `<div class="fila"><span class="etq">⏱ Duración</span>${e.horas_contratadas} hora(s)</div>` : ''}
+            <div class="fila"><span class="etq">👔 Uniforme</span>${e.uniforme || 'Por definir'}</div>
+            ${e.notas ? `<div class="fila"><span class="etq">📝 Notas</span>${e.notas}</div>` : ''}
+          </div>
+          ${e.canciones_especiales ? `<div class="canciones"><b>🎵 Canciones / pedido especial</b>${e.canciones_especiales}</div>` : ''}
+          ${esNuevo ? `<button class="btn-leido" onclick="marcarLeido(${e.id}, this)">✓ Ya vi este evento</button>` : ''}
+        </div>`;
+      }).join('');
+    }
+
+    async function marcarLeido(id, btn) {
+      await apiFetch(`/api/eventos/${id}/leer`, { method: 'PUT' });
+      if(btn) { btn.closest('.evento-card').classList.remove('nuevo'); btn.closest('.evento-card').classList.add('leido'); }
+      cargarEventos();
+    }
+
+    async function cargarEventos() {
+      const data = await apiFetch('/api/eventos');
+      if(!data) return;
+      const prevIds = new Set(todosLosEventos.map(e => e.id));
+      todosLosEventos = data;
+      renderEventos();
+      data.forEach(e => {
+        const esNuevo = !prevIds.has(e.id) || (!e.leido_por || !e.leido_por.includes(NOMBRE));
+        if(esNuevo && prevIds.size > 0) enviarNotifBrowser(`Nuevo evento: ${e.tipo_servicio}`, `${e.cliente_nombre} — ${fmtFecha(e.fecha)} en ${e.lugar || 'lugar por definir'}`, e);
+      });
+    }
+
+    function enviarNotifBrowser(titulo, cuerpo, evento) {
+      if(notifPerm !== 'granted') return;
+      try {
+        const n = new Notification(titulo, { body: cuerpo, icon: '/favicon.ico', tag: 'evento_' + (evento ? evento.id : Date.now()), requireInteraction: true });
+        n.onclick = () => { window.focus(); };
+      } catch(e) {}
+    }
+
+    async function activarNotificaciones() {
+      if(!('Notification' in window)) { document.getElementById('notifTexto').textContent = '⚠ Notificaciones no soportadas'; return; }
+      const perm = await Notification.requestPermission();
+      notifPerm = perm;
+      if(perm === 'granted') {
+        document.getElementById('notifTexto').textContent = '✅ Alertas activadas';
+        document.getElementById('btnActivarNotif').style.display = 'none';
+        enviarNotifBrowser('Proyecto 7', 'Alertas de eventos activadas. Recibirás una notificación cuando haya un evento nuevo.');
+      } else {
+        document.getElementById('notifTexto').textContent = '❌ Alertas bloqueadas';
+        document.getElementById('btnActivarNotif').style.display = 'none';
+      }
+    }
+
+    if('Notification' in window) notifPerm = Notification.permission;
+    if(notifPerm === 'granted') document.getElementById('btnActivarNotif').style.display = 'none';
+    if(notifPerm === 'granted') document.getElementById('notifTexto').textContent = '✅ Alertas activadas';
+
+    document.querySelectorAll('.filtro-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filtro-tab').forEach(t => t.classList.remove('activo'));
+        tab.classList.add('activo');
+        filtroActual = tab.dataset.filtro;
+        renderEventos();
+      });
+    });
+
+    cargarEventos();
+    setInterval(cargarEventos, 30000);
+  </script>
+</body>
+</html>

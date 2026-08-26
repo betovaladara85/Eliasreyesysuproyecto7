@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión · Agenda del Trío</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--sol:#FFC93C;--sol-suave:#FFE39B;--rosa:#E0457B;--rosa-osc:#A82E58;--turquesa:#00A9A5;--turquesa-osc:#067572;--cacao:#3D2400;--cacao-suave:#6B4423;--hueso:#FFFAF0;--crema:#FFF3D6;--linea:rgba(61,36,0,0.14);--display:'Fraunces',serif;--cuerpo:'Work Sans',sans-serif;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:linear-gradient(150deg,var(--sol) 0%,var(--sol-suave) 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:var(--cuerpo);}
+    .login-card{background:#fff;border:3px solid var(--cacao);border-radius:20px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 16px 40px rgba(61,36,0,0.18);}
+    .login-header{background:linear-gradient(150deg,var(--cacao),#5a3510);color:var(--hueso);padding:32px 28px 24px;text-align:center;}
+    .login-header .marca{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sol);font-weight:700;margin-bottom:8px;}
+    .login-header h1{font-family:var(--display);font-size:1.6rem;font-weight:700;line-height:1.1;}
+    .login-header p{font-size:0.88rem;color:var(--sol-suave);margin-top:8px;}
+    .login-body{padding:28px 28px 32px;}
+    .campo{margin-bottom:18px;}
+    .campo label{display:block;font-size:0.82rem;font-weight:700;color:var(--cacao-suave);margin-bottom:6px;}
+    .campo input{width:100%;padding:12px 14px;border:2px solid var(--cacao);border-radius:10px;font-size:0.95rem;background:var(--hueso);color:var(--cacao);font-family:var(--cuerpo);}
+    .campo input:focus{outline:none;border-color:var(--turquesa);}
+    .error{display:none;background:#fde8ef;color:var(--rosa-osc);padding:10px 14px;border-radius:10px;font-size:0.88rem;margin-bottom:16px;}
+    .error.visible{display:block;}
+    .btn{width:100%;padding:14px;border:none;border-radius:50px;background:var(--rosa);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;font-family:var(--cuerpo);box-shadow:0 4px 0 var(--rosa-osc);transition:transform .2s,box-shadow .2s;}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--rosa-osc);}
+    .btn:active{transform:translateY(1px);box-shadow:0 2px 0 var(--rosa-osc);}
+    .btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;box-shadow:0 4px 0 var(--rosa-osc);}
+    .pie{text-align:center;margin-top:20px;font-size:0.8rem;color:var(--cacao-suave);}
+    .pie a{color:var(--rosa-osc);font-weight:700;}
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="login-header">
+      <div class="marca">Elías Reyes y su Proyecto 7</div>
+      <h1>Agenda del trío</h1>
+      <p>Inicia sesión para ver tus eventos</p>
+    </div>
+    <div class="login-body">
+      <div class="error" id="error"></div>
+      <form id="loginForm">
+        <div class="campo">
+          <label for="usuario">Tu nombre</label>
+          <input type="text" id="usuario" placeholder="Ej: Elías, Aurora, Rulo" required autocomplete="username">
+        </div>
+        <div class="campo">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" placeholder="Contraseña" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn" id="btnLogin">Entrar a la agenda</button>
+      </form>
+      <div class="pie"><a href="/">← Volver al sitio del trío</a></div>
+    </div>
+  </div>
+  <script>
+    if(localStorage.getItem('trio_token')){ window.location.href = '/mi-agenda'; }
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btnLogin');
+      const errEl = document.getElementById('error');
+      btn.disabled = true; btn.textContent = 'Entrando...'; errEl.classList.remove('visible');
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ usuario: document.getElementById('usuario').value, password: document.getElementById('password').value })
+        });
+        const data = await res.json();
+        if(data.error) throw new Error(data.error);
+        localStorage.setItem('trio_token', data.token);
+        localStorage.setItem('trio_nombre', data.nombre);
+        localStorage.setItem('trio_rol', data.rol);
+        window.location.href = data.rol === 'admin' ? '/admin/leads' : '/mi-agenda';
+      } catch(err) {
+        errEl.textContent = err.message;
+        errEl.classList.add('visible');
+      }
+      btn.disabled = false; btn.textContent = 'Entrar a la agenda';
+    });
+  </script>
+</body>
+</html>
