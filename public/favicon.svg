@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Fondo -->
+  <circle cx="50" cy="50" r="48" fill="#3D2400"/>
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#FFC93C" stroke-width="2"/>
+  
+  <!-- Guitarra simplificada -->
+  <g transform="translate(50, 42)">
+    <ellipse cx="0" cy="8" rx="14" ry="11" fill="none" stroke="#E0457B" stroke-width="2"/>
+    <ellipse cx="0" cy="-5" rx="9" ry="7" fill="none" stroke="#E0457B" stroke-width="2"/>
+    <ellipse cx="0" cy="8" rx="5" ry="4" fill="none" stroke="#FFC93C" stroke-width="1.2"/>
+    <rect x="-1.5" y="-25" width="3" height="20" rx="1" fill="#FFC93C"/>
+    <rect x="-4" y="-30" width="8" height="5" rx="1.5" fill="#FFC93C"/>
+  </g>
+  
+  <!-- Nota musical -->
+  <circle cx="72" cy="30" r="3" fill="#00A9A5"/>
+  <line x1="75" y1="30" x2="75" y2="18" stroke="#00A9A5" stroke-width="1.5"/>
+  <path d="M75,18 Q80,17 78,22" fill="#00A9A5"/>
+  
+  <!-- P7 -->
+  <text x="50" y="78" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#FFC93C">P7</text>
+</svg>
