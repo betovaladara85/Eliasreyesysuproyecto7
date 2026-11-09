@@ -9,6 +9,7 @@
 <meta property="og:title" content="Elías Reyes y su Proyecto 7 | Música en vivo en Mérida">
 <meta property="og:description" content="Música en vivo para bodas, serenatas y eventos. Consulta fechas y horarios disponibles en línea.">
 
+<link rel="icon" href="public/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Work+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -590,13 +591,52 @@
 
   /* Herramientas internas/demo ocultas en la experiencia comercial pública */
   #repertorio-archivos,#graba,#subir-media,#galeria{display:none!important;}
+
+  .marca-lockup{display:flex;align-items:center;gap:10px;min-width:0;}
+  .marca-logo{width:44px;height:44px;border-radius:50%;flex:0 0 auto;box-shadow:0 4px 14px rgba(61,36,0,.18);}
+  .marca-texto{display:flex;flex-direction:column;line-height:1.05;}
+  .marca-texto strong{font-family:var(--display);font-size:1.05rem;}
+  .marca-texto small{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cacao-suave);margin-top:3px;}
+  .hero-marca{
+    min-height:470px;border-radius:28px;border:4px solid var(--cacao);
+    background:
+      radial-gradient(circle at 75% 20%,rgba(0,169,165,.24),transparent 32%),
+      radial-gradient(circle at 20% 80%,rgba(224,69,123,.24),transparent 34%),
+      var(--crema);
+    box-shadow:12px 12px 0 var(--rosa);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:34px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero-marca::before,.hero-marca::after{content:"♪";position:absolute;font-family:var(--display);font-size:7rem;font-weight:700;opacity:.08;color:var(--cacao);}
+  .hero-marca::before{left:20px;top:4px;transform:rotate(-12deg);}
+  .hero-marca::after{right:18px;bottom:-18px;transform:rotate(12deg);}
+  .hero-marca img{width:min(310px,80%);height:auto;filter:drop-shadow(0 14px 18px rgba(61,36,0,.18));position:relative;z-index:1;}
+  .hero-marca p{margin-top:18px;max-width:330px;color:var(--cacao-suave);font-size:.9rem;position:relative;z-index:1;}
+  .confianza-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:18px;position:relative;z-index:1;}
+  .confianza-strip span{background:var(--hueso);border:1.5px solid var(--cacao);border-radius:999px;padding:6px 10px;font-size:.72rem;font-weight:700;}
+  .cta-movil{
+    display:none;position:fixed;left:14px;right:14px;bottom:calc(12px + env(safe-area-inset-bottom));
+    z-index:120;background:var(--rosa);color:#fff;border:2px solid var(--rosa-osc);
+    border-radius:999px;padding:13px 18px;text-align:center;font-weight:800;
+    box-shadow:0 8px 24px rgba(61,36,0,.28);
+  }
+  @media(max-width:760px){
+    .cta-movil{display:block;}
+    body{padding-bottom:78px;}
+    .marca-texto small{display:none;}
+    .marca-logo{width:38px;height:38px;}
+    .hero-marca{min-height:360px;}
+  }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"MusicGroup","name":"Elías Reyes y su Proyecto 7","description":"Trío musical en Mérida, Yucatán para serenatas, bodas, eventos privados y presentaciones en vivo.","areaServed":{"@type":"AdministrativeArea","name":"Yucatán"},"genre":["Bolero","Trova","Música regional","Música popular","Covers acústicos"]}
+</script>
 </head>
 <body>
 
 <header>
   <nav class="nav">
-    <div class="marca">Elías Reyes <span>& su Proyecto 7</span></div>
+    <div class="marca-lockup"><img class="marca-logo" src="public/logo.svg" alt="" aria-hidden="true"><div class="marca-texto"><strong>Elías Reyes <span style="color:var(--rosa);">& Proyecto 7</span></strong><small>Trío musical · Mérida, Yucatán</small></div></div>
     <div class="nav-enlaces">
       <a href="#en-vivo">Conócenos</a>
       <a href="#repertorio">Repertorio</a>
@@ -636,13 +676,12 @@
         <div class="hero-dato"><b>A tu medida</b><span>Selección musical según cada ocasión</span></div>
       </div>
     </div>
-    <div class="carrusel" id="carrusel">
-      <div class="carrusel-track" id="carruselTrack">
-        <div class="carrusel-slide"><span>Bodas y eventos privados</span></div>
-        <div class="carrusel-slide"><span>Presentaciones en bares y restaurantes</span></div>
-        <div class="carrusel-slide"><span>Eventos culturales e institucionales</span></div>
+    <div class="hero-marca">
+      <img src="public/logo.svg" alt="Elías Reyes y su Proyecto 7">
+      <p>Una propuesta musical para serenatas, bodas, celebraciones privadas y presentaciones en vivo.</p>
+      <div class="confianza-strip">
+        <span>Serenatas</span><span>Bodas</span><span>Eventos privados</span><span>Presentaciones</span>
       </div>
-      <div class="carrusel-dots" id="carruselDots"></div>
     </div>
   </div>
 </section>
@@ -917,12 +956,13 @@
 
 <footer>
   <div class="envoltura">
-    <span class="marca">Elías Reyes <span>& su Proyecto 7</span></span>
+    <div style="display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:10px;"><img src="public/logo.svg" alt="" style="width:54px;height:54px;border-radius:50%;"><span class="marca">Elías Reyes <span>& su Proyecto 7</span></span></div>
     <p>Trío musical en Mérida, Yucatán · Disponible para eventos en toda la península</p>
     <p style="margin-top:6px;">© 2026 Elías Reyes y su Proyecto 7. Todos los derechos reservados.</p>
   </div>
 <p style="margin-top:14px;font-size:.78rem;"><a href="https://proyecto7-gig-pal.lovable.app/acceso" rel="nofollow">Acceso del equipo</a></p>
 </footer>
+<a class="cta-movil" href="https://proyecto7-gig-pal.lovable.app/registro">📅 Consultar disponibilidad</a>
 
 <script>
 (()=>{
@@ -939,24 +979,6 @@
   const menuMovil = document.getElementById('menuMovil');
   btnMenu.addEventListener('click', () => menuMovil.classList.toggle('abierto'));
   menuMovil.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menuMovil.classList.remove('abierto')));
-
-  /* carrusel */
-  const track = document.getElementById('carruselTrack');
-  const dotsWrap = document.getElementById('carruselDots');
-  const slides = track.children.length;
-  let actual = 0;
-  for(let i=0;i<slides;i++){
-    const dot = document.createElement('button');
-    if(i===0) dot.classList.add('activo');
-    dot.addEventListener('click', () => irASlide(i));
-    dotsWrap.appendChild(dot);
-  }
-  function irASlide(i){
-    actual = i;
-    track.style.transform = `translateX(-${i*100}%)`;
-    [...dotsWrap.children].forEach((d,idx)=>d.classList.toggle('activo', idx===i));
-  }
-  setInterval(()=>{ irASlide((actual+1)%slides); }, 4000);
 
   /* reproductor */
   const videoPrincipal = document.getElementById('videoPrincipal');
