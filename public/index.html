@@ -588,6 +588,9 @@
     *{animation-duration:0.001ms !important;transition-duration:0.001ms !important;}
     .reveal{opacity:1;transform:none;}
   }
+
+  /* Herramientas internas/demo ocultas en la experiencia comercial pública */
+  #repertorio-archivos,#graba,#subir-media,#galeria{display:none!important;}
 </style>
 </head>
 <body>
@@ -596,28 +599,20 @@
   <nav class="nav">
     <div class="marca">Elías Reyes <span>& su Proyecto 7</span></div>
     <div class="nav-enlaces">
-      <a href="#en-vivo">En vivo</a>
-      <a href="#repertorio-archivos">Cancionero</a>
-      <a href="#graba">Graba con nosotros</a>
-      <a href="#galeria">Galería</a>
-      <a href="#subir-media">Subir fotos/videos</a>
-      <a href="#cotizador">Cotizador</a>
-      <a href="#agenda">Agenda</a>
-      <a href="#eventos">Eventos</a>
+      <a href="#en-vivo">Conócenos</a>
+      <a href="#repertorio">Repertorio</a>
+      <a href="#eventos">Servicios</a>
+      <a href="#agenda">Disponibilidad</a>
       <a href="#contacto">Contacto</a>
     </div>
     <a href="https://proyecto7-gig-pal.lovable.app/registro" class="boton boton-primario nav-cta">Consultar disponibilidad</a>
     <button class="nav-movil-btn" id="btnMenu" aria-label="Abrir menú">☰</button>
   </nav>
   <div class="menu-movil" id="menuMovil">
-    <a href="#en-vivo">En vivo</a>
-    <a href="#repertorio-archivos">Cancionero</a>
-    <a href="#graba">Graba con nosotros</a>
-    <a href="#galeria">Galería</a>
-    <a href="#subir-media">Subir fotos/videos</a>
-    <a href="#cotizador">Cotizador</a>
-    <a href="#agenda">Agenda</a>
-    <a href="#eventos">Eventos</a>
+    <a href="#en-vivo">Conócenos</a>
+    <a href="#repertorio">Repertorio</a>
+    <a href="#eventos">Servicios</a>
+    <a href="#agenda">Disponibilidad</a>
     <a href="#contacto">Contacto</a>
   </div>
 </header>
@@ -634,12 +629,12 @@
       <p style="font-size:0.95rem;color:var(--cacao-suave);margin-top:14px;max-width:480px;">Tres voces, una guitarra y un repertorio sin fronteras. Bodas, bares, eventos institucionales y noches que se cuentan después.</p>
       <div class="hero-botones">
         <a href="https://proyecto7-gig-pal.lovable.app/registro" class="boton boton-primario">Consultar fecha</a>
-        <a href="#graba" class="boton boton-secundario">Graba con nosotros ▸</a>
+        <a href="#repertorio" class="boton boton-secundario">Conoce nuestro repertorio ▸</a>
       </div>
       <div class="hero-datos">
-        <div class="hero-dato"><b>+150</b><span>Presentaciones realizadas</span></div>
-        <div class="hero-dato"><b>3</b><span>Voces en armonía</span></div>
-        <div class="hero-dato"><b>5+</b><span>Géneros en repertorio</span></div>
+        <div class="hero-dato"><b>Mérida</b><span>Base de operaciones en Yucatán</span></div>
+        <div class="hero-dato"><b>En vivo</b><span>Voces, guitarra y repertorio adaptable</span></div>
+        <div class="hero-dato"><b>A tu medida</b><span>Selección musical según cada ocasión</span></div>
       </div>
     </div>
     <div class="carrusel" id="carrusel">
@@ -659,21 +654,27 @@
   <div class="envoltura">
     <div class="seccion-cabecera reveal">
       <div>
-        <span class="eyebrow">Escúchanos</span>
-        <h2 class="titulo-seccion">En vivo</h2>
+        <span class="eyebrow">El proyecto musical</span>
+        <h2 class="titulo-seccion">Música para momentos que importan</h2>
       </div>
-      <a href="https://www.youtube.com" target="_blank" rel="noopener" class="boton boton-terciario">Canal de YouTube ▸</a>
+      <a href="https://proyecto7-gig-pal.lovable.app/registro" class="boton boton-terciario">Consultar una fecha ▸</a>
     </div>
-    <div class="reproductor reveal">
-      <div class="pantalla-video">
-        <iframe id="videoPrincipal" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video destacado del trío" allowfullscreen loading="lazy"></iframe>
-      </div>
-      <div class="lista-clips">
-        <button class="clip-mini activo" data-video="dQw4w9WgXcQ"><div class="miniatura">▶</div><div class="info"><b>Boda en Mérida — set completo</b><span>Reemplaza con tu video</span></div></button>
-        <button class="clip-mini" data-video="dQw4w9WgXcQ"><div class="miniatura">▶</div><div class="info"><b>Cover acústico</b><span>Reemplaza con tu video</span></div></button>
-        <button class="clip-mini" data-video="dQw4w9WgXcQ"><div class="miniatura">▶</div><div class="info"><b>Presentación en bar</b><span>Reemplaza con tu video</span></div></button>
-        <button class="clip-mini" data-video="dQw4w9WgXcQ"><div class="miniatura">▶</div><div class="info"><b>Detrás de cámaras</b><span>Reemplaza con tu video</span></div></button>
-      </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+      <article style="padding:24px;border:2px solid rgba(255,250,240,.28);border-radius:18px;background:rgba(255,250,240,.06);">
+        <div style="font-size:2rem;margin-bottom:10px;">🎶</div>
+        <h3 style="font-family:var(--display);font-size:1.35rem;margin-bottom:8px;">Interpretación cercana</h3>
+        <p style="color:rgba(255,250,240,.75);font-size:.9rem;">Un formato pensado para conectar con el público y acompañar cada momento sin perder identidad.</p>
+      </article>
+      <article style="padding:24px;border:2px solid rgba(255,250,240,.28);border-radius:18px;background:rgba(255,250,240,.06);">
+        <div style="font-size:2rem;margin-bottom:10px;">🎤</div>
+        <h3 style="font-family:var(--display);font-size:1.35rem;margin-bottom:8px;">Repertorio adaptable</h3>
+        <p style="color:rgba(255,250,240,.75);font-size:.9rem;">Bolero, trova, regional, popular y versiones acústicas según el tipo de evento y el ambiente.</p>
+      </article>
+      <article style="padding:24px;border:2px solid rgba(255,250,240,.28);border-radius:18px;background:rgba(255,250,240,.06);">
+        <div style="font-size:2rem;margin-bottom:10px;">📅</div>
+        <h3 style="font-family:var(--display);font-size:1.35rem;margin-bottom:8px;">Contratación organizada</h3>
+        <p style="color:rgba(255,250,240,.75);font-size:.9rem;">Consulta disponibilidad, envía tu solicitud y recibe seguimiento desde el sistema de Proyecto 7.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -802,60 +803,19 @@
 
 <section id="cotizador">
   <div class="envoltura">
-    <span class="eyebrow reveal">Precios</span>
-    <h2 class="titulo-seccion reveal" style="margin-bottom:8px;">Cotiza tu evento</h2>
-    <p class="reveal" style="max-width:620px;color:var(--cacao-suave);margin-bottom:32px;">Selecciona el tipo de servicio, ajusta los detalles y recibe tu cotización personalizada al instante.</p>
-
-    <div class="cot-tabs reveal">
-      <button class="cot-tab activo" data-tab="serenata">🎵 Serenata</button>
-      <button class="cot-tab" data-tab="horas">⏱ Por hora</button>
-      <button class="cot-tab" data-tab="evento">🎉 Por evento</button>
-    </div>
-
-    <div class="reveal">
-      <div class="cot-panel activo" id="panel-serenata">
-        <h3>Serenata</h3>
-        <p style="font-size:0.88rem;color:var(--cacao-suave);margin-bottom:18px;">Incluye 4 canciones base con guitarra y tres voces. Ideal para sorprender a alguien especial.</p>
-        <div class="cot-fila"><label>Número de canciones</label><input type="number" id="cot-canciones" value="4" min="1" max="15"></div>
-        <div class="cot-fila"><label>Fuera de Mérida</label><select id="cot-fuera"><option value="no">No</option><option value="si">Sí (cargo extra $800)</option></select></div>
-        <div class="cot-resultado"><span class="precio-label">Total estimado</span><span class="precio-final" id="cot-precio-serenata">$1,800</span></div>
+    <span class="eyebrow reveal">Cotización</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:10px;">Una propuesta según tu evento</h2>
+    <p class="reveal" style="max-width:700px;color:var(--cacao-suave);margin-bottom:30px;">
+      El costo puede variar según el tipo de presentación, duración, ubicación, repertorio y requerimientos particulares. Para darte una cifra correcta, primero revisamos disponibilidad y características del evento.
+    </p>
+    <div class="reveal" style="background:var(--crema);border:3px solid var(--cacao);border-radius:20px;padding:30px;max-width:820px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:24px;">
+        <div><b style="display:block;margin-bottom:5px;">Serenatas</b><span style="font-size:.86rem;color:var(--cacao-suave);">Momentos especiales y celebraciones íntimas.</span></div>
+        <div><b style="display:block;margin-bottom:5px;">Eventos por hora</b><span style="font-size:.86rem;color:var(--cacao-suave);">Presentaciones con duración definida.</span></div>
+        <div><b style="display:block;margin-bottom:5px;">Eventos especiales</b><span style="font-size:.86rem;color:var(--cacao-suave);">Bodas, conciertos, instituciones y formatos a medida.</span></div>
       </div>
-
-      <div class="cot-panel" id="panel-horas">
-        <h3>Por hora</h3>
-        <p style="font-size:0.88rem;color:var(--cacao-suave);margin-bottom:18px;">Incluye montaje, sonido y receso. Ideal para bares, restaurantes y eventos que necesitan música de calidad.</p>
-        <div class="cot-fila"><label>Horas</label><input type="number" id="cot-horas" value="1" min="1" max="8"></div>
-        <div class="cot-resultado"><span class="precio-label">Total estimado</span><span class="precio-final" id="cot-precio-horas">$3,000</span></div>
-        <p style="font-size:0.78rem;color:var(--cacao-suave);margin-top:10px;">$3,000 MXN por hora · Música en vivo de primer nivel</p>
-      </div>
-
-      <div class="cot-panel" id="panel-evento">
-        <h3>Evento</h3>
-        <p style="font-size:0.88rem;color:var(--cacao-suave);margin-bottom:18px;">Cada evento es único. Cuéntanos qué tienes en mente y te haremos una propuesta a la medida.</p>
-        <div class="cot-fila"><label>Tipo de evento</label><select id="cot-tipo-evento"><option value="boda">Boda</option><option value="privado">Evento privado</option><option value="bar">Bar / Restaurante</option><option value="cultural">Institucional / Cultural</option></select></div>
-        <div class="cot-fila"><label>Horas estimadas</label><input type="number" id="cot-horas-extra" value="3" min="1" max="8"></div>
-        <div class="cot-resultado"><span class="precio-label">Requiere cotización personalizada</span><span class="precio-final" style="font-size:1.4rem;" id="cot-precio-evento">A convenir</span></div>
-        <p style="font-size:0.78rem;color:var(--cacao-suave);margin-top:10px;">El precio depende del tipo de evento, duración y ubicación. Escríbenos y te cotizamos.</p>
-      </div>
-
-      <details class="cot-form-trigger">
-        <summary>📋 Recibir esta cotización por WhatsApp o email</summary>
-        <form id="formCotizador">
-          <div class="campo"><label for="cot-nombre">Tu nombre</label><input type="text" id="cot-nombre" required></div>
-          <div class="campo"><label for="cot-telefono">WhatsApp / Teléfono</label><input type="tel" id="cot-telefono" required></div>
-          <div class="campo"><label for="cot-email">Email</label><input type="email" id="cot-email"></div>
-          <div class="campo"><label for="cot-mensaje">¿Algo más que debamos saber?</label><textarea id="cot-mensaje" style="min-height:70px;" placeholder="Fecha tentativa, lugar, número de invitados..."></textarea></div>
-          <button type="submit" class="boton boton-primario">Enviar y recibir cotización</button>
-        </form>
-      </details>
-
-      <div class="cot-mensaje-exito" id="cotExito">
-        <b>✅ Cotización enviada</b>
-        <span>Te hemos enviado tu cotización. Guarda este enlace para verla después:</span>
-        <a class="enlace-cot" id="cotEnlace" href="#" target="_blank"></a>
-        <a class="boton boton-secundario" id="cotBotonWa" href="#" target="_blank" style="margin-top:12px;display:inline-flex;">💬 Abrir en WhatsApp</a>
-        <a class="boton boton-primario" href="https://proyecto7-gig-pal.lovable.app/registro" style="margin-top:12px;display:inline-flex;">📅 Continuar y elegir fecha</a>
-      </div>
+      <a href="https://proyecto7-gig-pal.lovable.app/registro" class="boton boton-primario" style="width:100%;justify-content:center;">Solicitar cotización y revisar disponibilidad</a>
+      <p style="font-size:.78rem;color:var(--cacao-suave);margin-top:12px;text-align:center;">La solicitud no genera ningún cargo ni confirma automáticamente la contratación.</p>
     </div>
   </div>
 </section>
@@ -918,13 +878,26 @@
   </div>
 </section>
 
+<section id="como-funciona" style="background:var(--crema);">
+  <div class="envoltura">
+    <span class="eyebrow reveal">Proceso claro</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:32px;">De tu idea a una fecha confirmada</h2>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;">
+      <article class="repo-card"><h3>1. Consulta</h3><p>Elige una fecha y horario disponibles y cuéntanos qué tipo de evento estás organizando.</p></article>
+      <article class="repo-card"><h3>2. Revisamos</h3><p>Proyecto 7 recibe tu solicitud, verifica los detalles y confirma o propone una alternativa.</p></article>
+      <article class="repo-card"><h3>3. Formalizamos</h3><p>Se acuerdan condiciones, anticipo, repertorio y datos operativos del evento.</p></article>
+      <article class="repo-card"><h3>4. Nos preparamos</h3><p>El equipo organiza repertorio, ubicación, horarios y requerimientos para la presentación.</p></article>
+    </div>
+  </div>
+</section>
+
 <section id="contacto">
   <div class="envoltura contacto-grid">
     <div class="reveal">
       <span class="eyebrow">Contrataciones</span>
       <h2 class="titulo-seccion" style="margin-bottom:16px;">Llevemos música a tu evento</h2>
       <p style="color:var(--cacao-suave);margin-bottom:6px;">Cuando la música llega al alma, despierta emociones que se guardan en el corazón. Ese es el mejor recuerdo, para toda la vida.</p>
-      <p style="color:var(--cacao-suave);margin-top:10px;">Cuéntanos qué tienes en mente y te respondemos con disponibilidad y cotización en menos de 24 horas.</p>
+      <p style="color:var(--cacao-suave);margin-top:10px;">Cuéntanos qué tienes en mente y revisamos tu solicitud y te contactamos para confirmar disponibilidad y detalles.</p>
       <div style="margin-top:28px;padding:24px;border:2px solid var(--cacao);border-radius:16px;background:var(--crema);">
         <b style="display:block;font-family:var(--display);font-size:1.25rem;margin-bottom:8px;">Solicita tu fecha en línea</b>
         <p style="font-size:.88rem;color:var(--cacao-suave);margin-bottom:18px;">Para evitar duplicar datos y mantener la agenda actualizada, todas las solicitudes entran directamente a Proyecto 7 Manager.</p>
@@ -935,10 +908,10 @@
     <div class="reveal">
       <span class="eyebrow">Síguenos</span>
       <h2 class="titulo-seccion" style="margin-bottom:16px;font-size:1.8rem;">Más cerca en redes</h2>
-      <a class="canal" href="#" target="_blank" rel="noopener"><div class="marcador">f</div><div><b>Facebook</b><span>Síguenos para ver fechas y clips</span></div></a>
-      <a class="canal" href="#" target="_blank" rel="noopener"><div class="marcador">▶</div><div><b>YouTube</b><span>Videos completos de presentaciones y covers</span></div></a>
-      <a class="canal" href="#" target="_blank" rel="noopener"><div class="marcador">@</div><div><b>Instagram</b><span>Fotos, historias y adelantos de eventos</span></div></a>
-      <a class="canal" id="canalTelefono" href="tel:+529990000000"><div class="marcador">☏</div><div><b>Teléfono / WhatsApp</b><span>Respuesta directa para cotizaciones</span></div></a>
+      <div class="canal"><div class="marcador">f</div><div><b>Facebook</b><span>Enlace oficial por integrar</span></div></div>
+      <div class="canal"><div class="marcador">▶</div><div><b>YouTube</b><span>Canal oficial por integrar</span></div></div>
+      <div class="canal"><div class="marcador">@</div><div><b>Instagram</b><span>Perfil oficial por integrar</span></div></div>
+      <a class="canal" href="https://proyecto7-gig-pal.lovable.app/registro"><div class="marcador">☏</div><div><b>Contacto para contrataciones</b><span>Consulta disponibilidad y deja tus datos</span></div></a>
     </div>
   </div>
 </section>
