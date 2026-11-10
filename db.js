@@ -12,9 +12,9 @@ let mongoClient = null;
 let mongoDb = null;
 
 const USUARIOS_SEED = [
-  { _id: 'elias', nombre: 'Elías Reyes', password: 'trio2026', rol: 'admin' },
-  { _id: 'aurora', nombre: 'Aurora Quijano', password: 'trio2026', rol: 'miembro' },
-  { _id: 'rulo', nombre: 'Rulo Valadara', password: 'trio2026', rol: 'miembro' },
+  { _id: 'elias', nombre: 'Elías Reyes', password: process.env.SEED_ELIAS_PASSWORD || (process.env.NODE_ENV === 'production' ? '' : 'dev_elias_change_me'), rol: 'admin' },
+  { _id: 'aurora', nombre: 'Aurora Quijano', password: process.env.SEED_AURORA_PASSWORD || (process.env.NODE_ENV === 'production' ? '' : 'dev_aurora_change_me'), rol: 'miembro' },
+  { _id: 'rulo', nombre: 'Rulo Valadara', password: process.env.SEED_RULO_PASSWORD || (process.env.NODE_ENV === 'production' ? '' : 'dev_rulo_change_me'), rol: 'miembro' },
 ];
 
 function load() {
@@ -45,9 +45,19 @@ async function conectarMongo() {
 }
 
 async function init() {
+  if (process.env.NODE_ENV === 'production') {
+    if (!MONGO_URI) throw new Error('MONGO_URI es obligatorio en producción para guardar datos y fotografías de forma persistente');
+    if (USUARIOS_SEED.some(u=>!u.password || u.password.length<12) && !process.env.ALLOW_EXISTING_USERS_ONLY) {
+      // Las contraseñas iniciales sólo se requieren si la base todavía no tiene usuarios.
+      // La validación definitiva ocurre inmediatamente antes de sembrar usuarios.
+    }
+  }
   if (await conectarMongo()) {
     const count = await mongoDb.collection('usuarios').countDocuments();
     if (count === 0) {
+      if (process.env.NODE_ENV === 'production' && USUARIOS_SEED.some(u=>!u.password || u.password.length<12)) {
+        throw new Error('Configura SEED_ELIAS_PASSWORD, SEED_AURORA_PASSWORD y SEED_RULO_PASSWORD con al menos 12 caracteres antes del primer inicio');
+      }
       for (const u of USUARIOS_SEED) {
         const hash = await bcrypt.hash(u.password, 10);
         await mongoDb.collection('usuarios').insertOne({ _id: u._id, nombre: u.nombre, password_hash: hash, rol: u.rol });
