@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elías Reyes y su Proyecto 7 | Trío Musical en Mérida, Yucatán</title>
 <meta name="description" content="Elías Reyes y su Proyecto 7 — trío musical en Mérida, Yucatán. Bodas, serenatas, eventos privados, bares y presentaciones culturales. Consulta disponibilidad y solicita tu fecha en línea.">
+<!-- Configurar URL HTTPS del backend cuando se despliegue en producción (solo URL pública, nunca credenciales) -->
+<meta name="proyecto7-galeria-api" content="">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Elías Reyes y su Proyecto 7 | Música en vivo en Mérida">
@@ -627,6 +629,12 @@
 
   .skip-link{position:fixed;left:12px;top:10px;z-index:200;background:var(--cacao);color:#fff;padding:9px 14px;border-radius:8px;transform:translateY(-160%);transition:transform .2s;}
   .skip-link:focus{transform:translateY(0);}
+
+  #galeria-publica[hidden]{display:none!important}
+  .galeria-publicada{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .foto-publicada{border:2px solid var(--cacao);border-radius:16px;overflow:hidden;margin:0;background:var(--crema)}
+  .foto-publicada img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+  .foto-publicada figcaption{padding:12px 14px;font-size:.89rem;font-weight:700}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MusicGroup","name":"Elías Reyes y su Proyecto 7","description":"Trío musical en Mérida, Yucatán para serenatas, bodas, eventos privados y presentaciones en vivo.","areaServed":{"@type":"AdministrativeArea","name":"Yucatán"},"genre":["Bolero","Trova","Música regional","Música popular","Covers acústicos"]}
@@ -781,6 +789,15 @@
   #quienes-somos .envoltura{grid-template-columns:1fr!important;}
 }
 </style>
+
+<section id="galeria-publica" hidden>
+  <div class="envoltura">
+    <span class="eyebrow reveal">Fotografías</span>
+    <h2 class="titulo-seccion reveal" style="margin-bottom:10px;">Momentos de Proyecto 7</h2>
+    <p class="reveal" style="color:var(--cacao-suave);margin-bottom:25px;">Un vistazo a nuestras presentaciones y momentos especiales.</p>
+    <div class="galeria-publicada" id="fotosPublicadas"></div>
+  </div>
+</section>
 
 <section id="repertorio">
   <div class="envoltura">
@@ -978,6 +995,35 @@
         btnMenu.setAttribute('aria-expanded','false');
       })
     );
+  }
+  /* Galería pública: mismo origen para Node, origen API configurable para GitHub Pages. */
+  const gallerySection=document.querySelector('#galeria-publica');
+  const galleryBox=document.querySelector('#fotosPublicadas');
+  const onGithubPages=location.hostname.endsWith('.github.io');
+  const configuredBase=(document.querySelector('meta[name="proyecto7-galeria-api"]')?.content||'').trim().replace(/\/$/,'');
+  const galleryBase=configuredBase || (onGithubPages?'':location.origin);
+  if(gallerySection && galleryBox && galleryBase){
+    fetch(galleryBase+'/api/galeria',{mode:'cors',cache:'no-store'})
+      .then(r=>{if(!r.ok)throw new Error('Galería no disponible');return r.json()})
+      .then(items=>{
+        if(!Array.isArray(items)||!items.length)return;
+        const fragment=document.createDocumentFragment();
+        for(const item of items){
+          const figure=document.createElement('figure');
+          figure.className='foto-publicada';
+          const img=document.createElement('img');
+          img.src=galleryBase+item.url;
+          img.alt=item.alt||item.title||'Foto de Proyecto 7';
+          img.loading='lazy';img.decoding='async';
+          const cap=document.createElement('figcaption');
+          cap.textContent=item.title||'Proyecto 7';
+          figure.append(img,cap);
+          fragment.append(figure);
+        }
+        galleryBox.replaceChildren(fragment);
+        gallerySection.hidden=false;
+      })
+      .catch(()=>{gallerySection.hidden=true;});
   }
 })();
 </script>
