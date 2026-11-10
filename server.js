@@ -4,11 +4,13 @@ const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const db = require('./db');
+const media = require('./media-store');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const WHATSAPP_NUM = process.env.WHATSAPP_NUM || '529990000000';
-const JWT_SECRET = process.env.JWT_SECRET || 'proyecto7_' + (process.env.ADMIN_PASSWORD || 'clave_secreta_local');
+const JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV === 'production' ? '' : 'dev_only_change_me_before_production');
+if (!JWT_SECRET) throw new Error('Configura JWT_SECRET seguro para iniciar el servidor en producción');
 
 function archivoPublico(nombre) {
   const enPublic = path.join(__dirname, 'public', nombre);
@@ -51,7 +53,7 @@ function authAdminJWT(req, res, next) {
   } catch { res.status(401).json({ error: 'Sesión expirada' }); }
 }
 
-app.use(express.json());
+app.use(express.json({limit:'7mb'}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -284,6 +286,43 @@ app.get('/api/chat', async (req, res) => {
     if (!conv) return res.status(404).json({ error: 'No encontrada' });
     res.json(conv);
   } catch (err) { res.status(500).json({ error: 'Error' }); }
+});
+
+// ========== GALERÍA (MongoDB GridFS; edición solo admin) ==========
+app.use('/api/galeria', express.json({limit:'7mb'}));
+function mediaError(res,e){
+  if(!res.headersSent) res.status(e.status||500).json({error:e.status?e.message:'No se pudo procesar la fotografía'});
+  else res.destroy(e);
+  if(!e.status) console.error('Galería:',e);
+}
+app.get('/admin/fotos', (req,res) => res.sendFile(archivoPublico('fotos-admin.html')));
+app.get('/api/galeria', async(req,res)=>{
+  res.set('Access-Control-Allow-Origin','*');
+  try{res.json(await media.list(true));}catch(e){mediaError(res,e);}
+});
+app.get('/api/galeria/admin',authAdminJWT,async(req,res)=>{
+  res.set('Cache-Control','no-store');
+  try{res.json(await media.list(false));}catch(e){mediaError(res,e);}
+});
+app.get('/api/galeria/:id/archivo',async(req,res)=>{
+  res.set('Access-Control-Allow-Origin','*');
+  try{await media.stream(req.params.id,false,res);}catch(e){mediaError(res,e);}
+});
+app.get('/api/galeria/:id/privado',authAdminJWT,async(req,res)=>{
+  res.set('Cache-Control','no-store');
+  try{await media.stream(req.params.id,true,res);}catch(e){mediaError(res,e);}
+});
+app.post('/api/galeria',authAdminJWT,async(req,res)=>{
+  res.set('Cache-Control','no-store');
+  try{res.status(201).json(await media.add(req.body,req.usuario));}catch(e){mediaError(res,e);}
+});
+app.patch('/api/galeria/:id',authAdminJWT,async(req,res)=>{
+  res.set('Cache-Control','no-store');
+  try{res.json(await media.update(req.params.id,req.body));}catch(e){mediaError(res,e);}
+});
+app.delete('/api/galeria/:id',authAdminJWT,async(req,res)=>{
+  res.set('Cache-Control','no-store');
+  try{await media.remove(req.params.id);res.json({success:true});}catch(e){mediaError(res,e);}
 });
 
 // ========== ADMIN PANEL ==========
