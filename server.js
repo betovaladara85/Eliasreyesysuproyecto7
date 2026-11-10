@@ -350,6 +350,6 @@ db.init().then(() => {
   app.listen(PORT, () => {
     console.log(`Proyecto 7 corriendo en http://localhost:${PORT}`);
     if (!process.env.ADMIN_PASSWORD) console.log(`⚠ Admin: "${ADMIN_USER}" / "${ADMIN_PASSWORD}" (configura ADMIN_PASSWORD)`);
-    console.log(`👥 Miembros: Elías (elías), Aurora (aurora), Rulo (rulo) — contraseña: trio2026`);
+    console.log('Miembros del equipo configurados; usa contraseñas privadas y únicas.');
   });
 }).catch(err => { console.error('Error al iniciar:', err); process.exit(1); });
