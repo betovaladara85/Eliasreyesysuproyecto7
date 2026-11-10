@@ -288,6 +288,7 @@ async function marcarNotificacionLeida(id, usuario) {
 }
 
 module.exports = {
+  getMongoDb: () => mongoDb,
   init, getUsuario, verificarPassword,
   createCotizacion, getCotizacion, getCotizaciones, marcarCotizacionLeida,
   guardarConversacion, obtenerConversacion, listarConversaciones,
