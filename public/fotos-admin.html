@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Fotografías · Proyecto 7</title>
+<style>
+:root{--cacao:#3D2400;--rosa:#E0457B;--hueso:#FFFAF0;--crema:#FFF3D6;--sol:#FFC93C;--turquesa:#00A9A5}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial,sans-serif;background:var(--hueso);color:var(--cacao);line-height:1.5}header{background:var(--cacao);color:white;padding:22px max(20px,calc((100vw - 1080px)/2));display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+header h1{font-size:1.35rem;margin:0}header a{color:var(--sol)}main{max-width:1100px;padding:30px 20px 70px;margin:auto}h2{margin-top:0;font-size:1.3rem}
+.card{background:white;border:2px solid var(--cacao);border-radius:18px;padding:22px;box-shadow:4px 4px 0 #e5cbb4;margin-bottom:26px}
+.row{display:flex;flex-wrap:wrap;gap:15px}.field{flex:1;min-width:180px}label{font-weight:700;font-size:.85rem;display:block;margin:0 0 5px}
+input,select{width:100%;padding:11px;border:1.5px solid #8b6b51;border-radius:10px;background:#fff;font:inherit}
+button,.button{font:inherit;background:var(--rosa);color:white;border:0;border-radius:12px;padding:11px 18px;font-weight:750;cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}.secondary{background:var(--cacao)}.danger{background:#ad2940}
+small,.muted{color:#69503c}.status{min-height:26px;font-weight:700;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:18px}.tile{border:1.5px solid #d5bda9;background:white;border-radius:14px;overflow:hidden}
+.tile img{width:100%;height:185px;object-fit:cover;background:var(--crema)}.tile-body{padding:14px}.tile-body label{margin-top:9px}.tile .row{gap:8px;margin-top:12px}.tile button{padding:8px 10px;font-size:.83rem}
+.pill{display:inline-block;border-radius:999px;background:#fce3eb;color:#8d2249;padding:3px 10px;font-size:.75rem;font-weight:700}
+.pill.public{background:#dff6f2;color:#11665e}
+#loader{display:none}#loginWarning{background:#fff1be;padding:12px;border-radius:12px;margin-bottom:15px}
+@media(max-width:620px){main{padding:18px 12px 65px}.card{padding:15px}}
+</style></head><body>
+<header><div><h1>Proyecto 7 · Gestor de fotografías</h1><small style="color:#ffe39b">Solo administradores · Publicación controlada</small></div><nav><a href="/">Ver web</a> · <a href="/login">Iniciar sesión</a></nav></header>
+<main>
+<div id="loginWarning" hidden>Necesitas iniciar sesión como administrador en este servidor para gestionar las fotos. <a href="/login">Iniciar sesión</a>.</div>
+<section class="card"><h2>Agregar fotografía</h2><p>JPG, PNG o WebP · hasta 5 MB. Las fotos se cargan como <strong>borradores privados</strong>; solo aparecerán públicamente cuando pulses «Publicar».</p>
+<form id="upload">
+<div class="row">
+<div class="field"><label for="photo">Archivo</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp" required></div>
+<div class="field"><label for="title">Título</label><input id="title" maxlength="120" placeholder="Presentación en hacienda"></div>
+<div class="field"><label for="category">Categoría</label><select id="category"><option value="galeria">Galería</option><option value="portada">Portada</option><option value="integrantes">Integrantes</option><option value="eventos">Eventos</option><option value="promocionales">Promocionales</option></select></div>
+</div><div class="row" style="margin-top:14px"><div class="field"><label for="alt">Descripción accesible (alt)</label><input id="alt" maxlength="120" placeholder="Los tres músicos tocando en una hacienda"></div></div>
+<p><button id="submit" type="submit">Guardar como borrador</button></p>
+</form><div id="status" class="status" role="status" aria-live="polite"></div></section>
+<section class="card"><div class="row" style="align-items:center;justify-content:space-between"><h2 style="margin:0">Biblioteca de fotografías</h2><button class="secondary" id="refresh">Actualizar</button></div><p class="muted">Edita el título, cambia el orden, publica u oculta. Solo las fotos publicadas serán visibles en el sitio.</p><div id="loader">Cargando...</div><div id="gallery" class="grid"></div></section>
+</main>
+<script>
+'use strict';
+const token=localStorage.getItem('trio_token');
+const role=localStorage.getItem('trio_rol');
+const grid=document.querySelector('#gallery');
+const status=document.querySelector('#status');
+if(!token||role!=='admin') document.querySelector('#loginWarning').hidden=false;
+const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+async function api(path,opts={}){
+  const r=await fetch('/api/galeria'+path,{...opts,headers:{...(opts.headers||{}),Authorization:'Bearer '+token},cache:'no-store'});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok) throw Error(data.error||('Error '+r.status));
+  return data;
+}
+const readDataURL=file=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(Error('No se pudo leer la fotografía'));reader.onload=()=>resolve(reader.result);reader.readAsDataURL(file)});
+function report(t,error=false){status.textContent=t;status.style.color=error?'#a1193f':'#11665e'}
+async function preview(id,img){
+  try{
+    const r=await fetch('/api/galeria/'+id+'/privado',{headers:{Authorization:'Bearer '+token},cache:'no-store'});
+    if(!r.ok) return;
+    const blob=await r.blob(),url=URL.createObjectURL(blob);
+    img.src=url;img.onload=()=>URL.revokeObjectURL(url);
+  }catch(_){}
+}
+async function load(){
+  if(!token||role!=='admin') return;
+  document.querySelector('#loader').style.display='block';grid.innerHTML='';
+  try{
+    const items=await api('/admin');
+    for(const item of items){
+      const card=document.createElement('article');card.className='tile';
+      card.innerHTML='<img alt="'+esc(item.alt)+'"><div class="tile-body"><span class="pill '+(item.published?'public':'')+'">'+(item.published?'Publicada':'Borrador privado')+'</span>'+
+       '<label>Título<input class="edit-title" maxlength="120" value="'+esc(item.title)+'"></label>'+
+       '<label>Descripción<input class="edit-alt" maxlength="120" value="'+esc(item.alt)+'"></label>'+
+       '<label>Categoría<select class="edit-category">'+['portada','integrantes','eventos','promocionales','galeria'].map(c=>'<option value="'+c+'" '+(item.category===c?'selected':'')+'>'+c+'</option>').join('')+'</select></label>'+
+       '<label>Orden<input class="edit-order" type="number" min="0" step="1" value="'+item.position+'"></label>'+
+       '<label style="margin-top:10px"><input class="edit-featured" type="checkbox" '+(item.featured?'checked':'')+' style="width:auto"> Destacada</label>'+
+       '<div class="row"><button class="save secondary">Guardar</button><button class="toggle">'+(item.published?'Ocultar':'Publicar')+'</button><button class="remove danger">Eliminar</button></div></div>';
+      const img=card.querySelector('img');preview(item.id,img);
+      const buttons=card.querySelectorAll('button');
+      const save=async(extra={})=>{
+        const position=Number(card.querySelector('.edit-order').value);
+        if(!Number.isSafeInteger(position)||position<0) throw Error('Orden inválido');
+        await api('/'+item.id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+          title:card.querySelector('.edit-title').value,
+          alt:card.querySelector('.edit-alt').value,
+          category:card.querySelector('.edit-category').value,
+          position,featured:card.querySelector('.edit-featured').checked,...extra
+        })});
+      };
+      async function action(fn){buttons.forEach(b=>b.disabled=true);try{await fn();report('Cambios guardados');await load()}catch(e){report(e.message,true);buttons.forEach(b=>b.disabled=false)}}
+      card.querySelector('.save').onclick=()=>action(()=>save());
+      card.querySelector('.toggle').onclick=()=>action(()=>save({published:!item.published}));
+      card.querySelector('.remove').onclick=()=>{if(confirm('¿Eliminar esta fotografía definitivamente?')) action(()=>api('/'+item.id,{method:'DELETE'}))};
+      grid.append(card);
+    }
+    if(!items.length)grid.innerHTML='<p>Aún no hay fotografías. Carga la primera como borrador.</p>';
+  }catch(e){report(e.message,true)}finally{document.querySelector('#loader').style.display='none'}
+}
+document.querySelector('#upload').addEventListener('submit',async e=>{
+ e.preventDefault();const file=document.querySelector('#photo').files[0];if(!file)return;
+ if(file.size>5*1024*1024){report('El archivo supera 5 MB',true);return}
+ const btn=document.querySelector('#submit');btn.disabled=true;
+ try{
+  report('Subiendo foto...');
+  await api('',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    data_url:await readDataURL(file),title:document.querySelector('#title').value,
+    alt:document.querySelector('#alt').value,category:document.querySelector('#category').value
+  })});
+  e.target.reset();report('Fotografía guardada como borrador');await load();
+ }catch(err){report(err.message,true)}finally{btn.disabled=false}
+});
+document.querySelector('#refresh').onclick=load;load();
+</script></body></html>
