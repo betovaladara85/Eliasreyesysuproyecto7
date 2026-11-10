@@ -47,10 +47,6 @@ async function conectarMongo() {
 async function init() {
   if (process.env.NODE_ENV === 'production') {
     if (!MONGO_URI) throw new Error('MONGO_URI es obligatorio en producción para guardar datos y fotografías de forma persistente');
-    if (USUARIOS_SEED.some(u=>!u.password || u.password.length<12) && !process.env.ALLOW_EXISTING_USERS_ONLY) {
-      // Las contraseñas iniciales sólo se requieren si la base todavía no tiene usuarios.
-      // La validación definitiva ocurre inmediatamente antes de sembrar usuarios.
-    }
   }
   if (await conectarMongo()) {
     const count = await mongoDb.collection('usuarios').countDocuments();
