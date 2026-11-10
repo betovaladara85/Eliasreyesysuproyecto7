@@ -53,7 +53,8 @@ function authAdminJWT(req, res, next) {
   } catch { res.status(401).json({ error: 'Sesión expirada' }); }
 }
 
-app.use(express.json({limit:'7mb'}));
+app.use('/api/galeria', express.json({limit:'7mb'}));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -289,7 +290,6 @@ app.get('/api/chat', async (req, res) => {
 });
 
 // ========== GALERÍA (MongoDB GridFS; edición solo admin) ==========
-app.use('/api/galeria', express.json({limit:'7mb'}));
 function mediaError(res,e){
   if(!res.headersSent) res.status(e.status||500).json({error:e.status?e.message:'No se pudo procesar la fotografía'});
   else res.destroy(e);
