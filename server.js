@@ -292,14 +292,14 @@ app.get('/api/chat', async (req, res) => {
 // ========== WEB PÚBLICA: Manager es la única fuente de agenda/media ==========
 // Usa exclusivamente llave PÚBLICA de Supabase; nunca service_role, nunca JWT de usuarios.
 // No muestra fichas privadas: consume tablas RLS con publicación aprobada.
-const MANAGER_SUPABASE_URL=(process.env.MANAGER_SUPABASE_URL||'').replace(/\\/$/,'');
+const MANAGER_SUPABASE_URL=(process.env.MANAGER_SUPABASE_URL||'').replace(/\/$/,'');
 const MANAGER_SUPABASE_PUBLIC_KEY=process.env.MANAGER_SUPABASE_PUBLIC_KEY||'';
 const MANAGER_PROJECT_URL='https://plihjyompjqkgymtsshb.supabase.co';
 const publicCache={value:null,expires:0};
 async function managerPublicRequest(path,options={}) {
   const request=await fetch(MANAGER_SUPABASE_URL+path,{
     ...options,
-    headers:{'apikey':MANAGER_SUPABASE_PUBLIC_KEY,'Authorization':'Bearer '+MANAGER_SUPABASE_PUBLIC_KEY,...options.headers},
+    headers:{'apikey':MANAGER_SUPABASE_PUBLIC_KEY,...(MANAGER_SUPABASE_PUBLIC_KEY.startsWith('sb_publishable_')?{}:{'Authorization':'Bearer '+MANAGER_SUPABASE_PUBLIC_KEY}),...options.headers},
     signal:AbortSignal.timeout(8500)
   });
   if(!request.ok)throw Error('El catálogo público no está disponible');
