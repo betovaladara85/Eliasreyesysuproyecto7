@@ -799,6 +799,21 @@
   </div>
 </section>
 
+
+<section id="p7-web-contenido" hidden aria-label="Contenido oficial de Proyecto 7">
+  <div class="envoltura">
+    <span class="eyebrow">Publicaciones oficiales</span>
+    <h2 class="titulo-seccion" style="margin-bottom:12px;">Así suena y se vive Proyecto 7</h2>
+    <p style="margin-bottom:24px;color:var(--cacao-suave);">Fotografías, videos y presentaciones autorizadas por el grupo.</p>
+    <div class="galeria-publicada" id="p7-web-multimedia" aria-label="Fotografías y videos publicados"></div>
+    <div id="p7-web-calendario" hidden style="margin-top:35px;">
+      <h3 class="titulo-seccion" style="font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:18px;">Próximas presentaciones públicas</h3>
+      <div id="p7-web-fechas" class="galeria-publicada"></div>
+      <p style="margin-top:14px;font-size:.86rem;color:var(--cacao-suave)">La cartelera muestra solo las presentaciones anunciadas oficialmente. Para contratar, consulta la disponibilidad en el sistema del grupo.</p>
+    </div>
+  </div>
+</section>
+
 <section id="repertorio">
   <div class="envoltura">
     <span class="eyebrow reveal">Repertorio</span>
@@ -995,6 +1010,53 @@
         btnMenu.setAttribute('aria-expanded','false');
       })
     );
+  }
+  /* Nueva galería y cartelera: desde Manager, sin exponer los datos de eventos privados. */
+  const publicacionesSection=document.getElementById('p7-web-contenido');
+  const publicacionesMedia=document.getElementById('p7-web-multimedia');
+  const publicacionesAgenda=document.getElementById('p7-web-calendario');
+  const publicacionesFechas=document.getElementById('p7-web-fechas');
+  const apiWebBase=(document.querySelector('meta[name="proyecto7-galeria-api"]')?.content||'').trim().replace(/\/$/,'') || (location.hostname.endsWith('.github.io')?'':location.origin);
+  if(apiWebBase && publicacionesSection && publicacionesMedia && publicacionesFechas){
+    fetch(apiWebBase+'/api/web/publicaciones',{mode:'cors',cache:'no-store'})
+      .then(r=>{if(!r.ok)throw Error('Cartelera no disponible');return r.json();})
+      .then(({media,agenda})=>{
+        const publicadas=Array.isArray(media)?media:[];
+        const fechas=Array.isArray(agenda)?agenda:[];
+        if(!publicadas.length&&!fechas.length)return;
+        for(const m of publicadas){
+          if(!m||!['foto','video'].includes(m.kind)||typeof m.url!=='string'||!m.url.startsWith('https://'))continue;
+          const figura=document.createElement('figure');
+          figura.className='foto-publicada';
+          const elemento=document.createElement(m.kind==='video'?'video':'img');
+          elemento.src=m.url;
+          if(m.kind==='video'){
+            elemento.controls=true;elemento.preload='metadata';elemento.setAttribute('playsinline','');
+            elemento.style.width='100%';elemento.style.aspectRatio='4/3';elemento.style.objectFit='cover';
+          }else{
+            elemento.alt=m.alt||m.title||'Proyecto 7';elemento.loading='lazy';elemento.decoding='async';
+          }
+          const leyenda=document.createElement('figcaption');
+          leyenda.textContent=m.title||'Proyecto 7';
+          figura.append(elemento,leyenda);
+          publicacionesMedia.append(figura);
+        }
+        for(const evento of fechas){
+          if(!evento||typeof evento.fecha!=='string')continue;
+          const card=document.createElement('article');
+          card.className='foto-publicada';
+          const heading=document.createElement('h4');
+          heading.style.padding='15px 16px 0';
+          heading.style.fontWeight='800';
+          heading.textContent=evento.titulo||'Presentación Proyecto 7';
+          const body=document.createElement('p');
+          body.style.padding='8px 16px 16px';
+          body.textContent=evento.fecha+' · '+(evento.hora||'Horario por confirmar')+(evento.lugar?' · '+evento.lugar:'');
+          card.append(heading,body);publicacionesFechas.append(card);
+        }
+        publicacionesAgenda.hidden=publicacionesFechas.children.length===0;
+        publicacionesSection.hidden=false;
+      }).catch(()=>{publicacionesSection.hidden=true;});
   }
   /* Galería pública: mismo origen para Node, origen API configurable para GitHub Pages. */
   const gallerySection=document.querySelector('#galeria-publica');
