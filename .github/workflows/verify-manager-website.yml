@@ -1,0 +1,17 @@
+name: Verificar conexión web y Manager
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  test-public-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/verify-web-integration.js
+      - run: node --check server.js
+      - run: node --check media-store.js
