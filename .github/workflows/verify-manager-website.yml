@@ -13,5 +13,7 @@ jobs:
         with:
           node-version: '22'
       - run: node scripts/verify-web-integration.js
+      - run: node --check public/p7-publicaciones.js
+      - run: node scripts/verify-static-pages-feed.js
       - run: node --check server.js
       - run: node --check media-store.js
