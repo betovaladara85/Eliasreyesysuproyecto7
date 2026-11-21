@@ -15,10 +15,10 @@ Código de galería y panel integrado en la rama `main`. **No implica que esté 
 
 ## Configuración necesaria del servidor (Node 18+)
 1. Desplegar este repositorio en hosting Node que admita Express y acceso a MongoDB Atlas.
-2. Configurar `MONGO_URI`, `MONGO_DB`, `JWT_SECRET` aleatorio (mínimo 32 caracteres), `ADMIN_USER` y `ADMIN_PASSWORD`. **Nunca** subir contraseñas ni URL de Mongo a GitHub.
+2. Configurar `MONGO_URI`, `MONGO_DB` y un `JWT_SECRET` aleatorio (mínimo 32 caracteres). **Nunca** subir contraseñas ni URL de Mongo a GitHub.
 3. Para una base totalmente nueva, definir contraseñas individuales para `SEED_ELIAS_PASSWORD`, `SEED_AURORA_PASSWORD`, `SEED_RULO_PASSWORD` (mínimo 12 caracteres). En bases existentes verificar y rotar las credenciales heredadas: cambiar estas variables NO modifica hashes existentes.
 4. Desplegar en HTTPS. Revisar en servidor `/api/galeria`: debe responder `[]` al inicio.
-5. Iniciar sesión en `/login` con usuario administrador y visitar `/admin/fotos`.
+5. Iniciar sesión una sola vez en `/login` con Elías y visitar `/admin/fotos`. La misma sesión JWT protege el panel y la galería.
 6. Subir foto, revisar título y alt, elegir categoría, guardar como borrador, verificar que no aparezca en `/api/galeria`, y después publicar.
 7. En `index.html` y `public/index.html` de GitHub Pages configurar:
    `<meta name="proyecto7-galeria-api" content="https://TU-SERVIDOR">`

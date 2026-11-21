@@ -22,18 +22,6 @@ function vistaCotizacion() {
   return fs.existsSync(enViews) ? enViews : path.join(__dirname, 'cotizacion.ejs');
 }
 
-const ADMIN_USER = process.env.ADMIN_USER || 'admin';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || Math.random().toString(36).slice(2, 14);
-
-function authAdmin(req, res, next) {
-  const cab = req.headers.authorization || '';
-  const cred = Buffer.from(cab.replace(/^Basic\s+/i, ''), 'base64').toString();
-  const [user, pass] = cred.split(':');
-  if (user === ADMIN_USER && pass === ADMIN_PASSWORD) return next();
-  res.set('WWW-Authenticate', 'Basic realm="Panel Proyecto 7"');
-  res.status(401).send('Acceso restringido');
-}
-
 function authMiembro(req, res, next) {
   const token = req.headers.authorization?.replace('Bearer ', '');
   if (!token) return res.status(401).json({ error: 'Sesión no válida' });
@@ -374,8 +362,10 @@ app.delete('/api/galeria/:id',authAdminJWT,async(req,res)=>{
 });
 
 // ========== ADMIN PANEL ==========
-app.use(['/admin/leads', '/api/admin'], authAdmin);
+// El panel y la galería comparten la misma sesión JWT. Así se evita pedir una
+// segunda contraseña HTTP después de que Elías ya inició sesión.
 app.get('/admin/leads', (req, res) => res.sendFile(archivoPublico('admin.html')));
+app.use('/api/admin', authAdminJWT);
 app.get('/api/admin/cotizaciones', async (req, res) => res.json(await db.getCotizaciones()));
 app.put('/api/admin/cotizaciones/:id/leer', async (req, res) => { await db.marcarCotizacionLeida(req.params.id); res.json({ success: true }); });
 app.get('/api/admin/conversaciones', async (req, res) => res.json(await db.listarConversaciones()));
@@ -397,7 +387,6 @@ app.delete('/api/admin/eventos/:id', async (req, res) => { await db.deleteEvento
 db.init().then(() => {
   app.listen(PORT, () => {
     console.log(`Proyecto 7 corriendo en http://localhost:${PORT}`);
-    if (!process.env.ADMIN_PASSWORD) console.log(`⚠ Admin: "${ADMIN_USER}" / "${ADMIN_PASSWORD}" (configura ADMIN_PASSWORD)`);
     console.log('Miembros del equipo configurados; usa contraseñas privadas y únicas.');
   });
 }).catch(err => { console.error('Error al iniciar:', err); process.exit(1); });

@@ -293,30 +293,31 @@
   <script>
     const TIPOS = { serenata:'🎵 Serenata', horas:'⏱ Por hora', evento:'🎉 Evento', chat:'💬 Chat' };
 
-    let AUTH = sessionStorage.getItem('adminAuth') || '';
+    const TOKEN = localStorage.getItem('trio_token') || '';
+    const ROLE = localStorage.getItem('trio_rol') || '';
 
     async function adminFetch(url, opts = {}) {
-      const headers = { ...opts.headers, 'Authorization': 'Basic ' + AUTH };
-      return fetch(url, { ...opts, headers });
+      const headers = { ...opts.headers, 'Authorization': 'Bearer ' + TOKEN };
+      const response = await fetch(url, { ...opts, headers });
+      if (response.status === 401 || response.status === 403) cerrarSesion();
+      return response;
     }
 
     async function requireAuth() {
-      if (!AUTH) pedirAuth();
-      try {
-        const res = await adminFetch('/api/admin/cotizaciones');
-        if (res.status === 401) pedirAuth();
-      } catch(e) { /* offline */ }
+      if (!TOKEN || ROLE !== 'admin') return cerrarSesion();
+      const res = await fetch('/api/auth/yo', { headers: { Authorization: 'Bearer ' + TOKEN } });
+      if (!res.ok) return cerrarSesion();
+      const user = await res.json();
+      if (user.rol !== 'admin') return cerrarSesion();
+      return true;
     }
 
-    function pedirAuth() {
-      let intentos = 0;
-      while (intentos < 5) {
-        const cred = prompt('Acceso al panel\nIngresa usuario y contraseña (formato: usuario:contraseña):');
-        if (!cred) return;
-        AUTH = btoa(cred);
-        sessionStorage.setItem('adminAuth', AUTH);
-        return;
-      }
+    function cerrarSesion() {
+      localStorage.removeItem('trio_token');
+      localStorage.removeItem('trio_nombre');
+      localStorage.removeItem('trio_rol');
+      window.location.replace('/login?next=/admin/leads');
+      return false;
     }
 
     function fmtFecha(iso) {
@@ -687,7 +688,8 @@
     }
 
     /* ── Init & polling ── */
-    requireAuth().then(() => {
+    requireAuth().then(ok => {
+      if (!ok) return;
       cargarCotizaciones();
       cargarConsultas();
       cargarEventos();

@@ -54,7 +54,11 @@
     </div>
   </div>
   <script>
-    if(localStorage.getItem('trio_token')){ window.location.href = '/mi-agenda'; }
+    const nextPath = new URLSearchParams(location.search).get('next');
+    const safeNext = nextPath && nextPath.startsWith('/') && !nextPath.startsWith('//') ? nextPath : '';
+    if(localStorage.getItem('trio_token')){
+      window.location.href = safeNext || (localStorage.getItem('trio_rol') === 'admin' ? '/admin/leads' : '/mi-agenda');
+    }
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('btnLogin');
@@ -70,7 +74,7 @@
         localStorage.setItem('trio_token', data.token);
         localStorage.setItem('trio_nombre', data.nombre);
         localStorage.setItem('trio_rol', data.rol);
-        window.location.href = data.rol === 'admin' ? '/admin/leads' : '/mi-agenda';
+        window.location.href = safeNext && data.rol === 'admin' ? safeNext : (data.rol === 'admin' ? '/admin/leads' : '/mi-agenda');
       } catch(err) {
         errEl.textContent = err.message;
         errEl.classList.add('visible');

@@ -17,9 +17,9 @@ small,.muted{color:#69503c}.status{min-height:26px;font-weight:700;margin:14px 0
 #loader{display:none}#loginWarning{background:#fff1be;padding:12px;border-radius:12px;margin-bottom:15px}
 @media(max-width:620px){main{padding:18px 12px 65px}.card{padding:15px}}
 </style></head><body>
-<header><div><h1>Proyecto 7 · Gestor de fotografías</h1><small style="color:#ffe39b">Solo administradores · Publicación controlada</small></div><nav><a href="/">Ver web</a> · <a href="/login">Iniciar sesión</a></nav></header>
+<header><div><h1>Proyecto 7 · Gestor de fotografías</h1><small style="color:#ffe39b">Solo administradores · Publicación controlada</small></div><nav><a href="/">Ver web</a> · <a href="/admin/leads">Panel</a> · <a href="#" id="logout">Cerrar sesión</a></nav></header>
 <main>
-<div id="loginWarning" hidden>Necesitas iniciar sesión como administrador en este servidor para gestionar las fotos. <a href="/login">Iniciar sesión</a>.</div>
+<div id="loginWarning" hidden>Necesitas iniciar sesión como Elías para gestionar las fotos. <a href="/login?next=/admin/fotos">Iniciar sesión</a>.</div>
 <section class="card"><h2>Agregar fotografía</h2><p>JPG, PNG o WebP · hasta 5 MB. Las fotos se cargan como <strong>borradores privados</strong>; solo aparecerán públicamente cuando pulses «Publicar».</p>
 <form id="upload">
 <div class="row">
@@ -37,11 +37,24 @@ const token=localStorage.getItem('trio_token');
 const role=localStorage.getItem('trio_rol');
 const grid=document.querySelector('#gallery');
 const status=document.querySelector('#status');
-if(!token||role!=='admin') document.querySelector('#loginWarning').hidden=false;
+if(!token||role!=='admin'){
+  document.querySelector('#loginWarning').hidden=false;
+  document.querySelector('#upload').querySelectorAll('input,select,button').forEach(el=>el.disabled=true);
+}
+document.querySelector('#logout').onclick=e=>{
+  e.preventDefault();
+  localStorage.removeItem('trio_token');localStorage.removeItem('trio_nombre');localStorage.removeItem('trio_rol');
+  location.href='/login?next=/admin/fotos';
+};
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 async function api(path,opts={}){
   const r=await fetch('/api/galeria'+path,{...opts,headers:{...(opts.headers||{}),Authorization:'Bearer '+token},cache:'no-store'});
   const data=await r.json().catch(()=>({}));
+  if(r.status===401||r.status===403){
+    localStorage.removeItem('trio_token');localStorage.removeItem('trio_nombre');localStorage.removeItem('trio_rol');
+    location.href='/login?next=/admin/fotos';
+    throw Error('La sesión terminó');
+  }
   if(!r.ok) throw Error(data.error||('Error '+r.status));
   return data;
 }
