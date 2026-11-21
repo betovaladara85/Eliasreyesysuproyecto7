@@ -7,6 +7,8 @@
 <meta name="description" content="Elías Reyes y su Proyecto 7 — trío musical en Mérida, Yucatán. Bodas, serenatas, eventos privados, bares y presentaciones culturales. Consulta disponibilidad y solicita tu fecha en línea.">
 <!-- Configurar URL HTTPS del backend cuando se despliegue en producción (solo URL pública, nunca credenciales) -->
 <meta name="proyecto7-galeria-api" content="">
+<!-- Clave publishable del navegador: la seguridad de datos se aplica mediante políticas RLS de Supabase. -->
+<meta name="p7-supabase-public-key" content="sb_publishable_pEb3xU80y7ENgQ1cJReNmA_igD4OwqP">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Elías Reyes y su Proyecto 7 | Música en vivo en Mérida">
@@ -1017,7 +1019,7 @@
   const publicacionesAgenda=document.getElementById('p7-web-calendario');
   const publicacionesFechas=document.getElementById('p7-web-fechas');
   const apiWebBase=(document.querySelector('meta[name="proyecto7-galeria-api"]')?.content||'').trim().replace(/\/$/,'') || (location.hostname.endsWith('.github.io')?'':location.origin);
-  if(apiWebBase && publicacionesSection && publicacionesMedia && publicacionesFechas){
+  if(apiWebBase && publicacionesSection && publicacionesMedia && publicacionesFechas && !document.querySelector('meta[name="p7-supabase-public-key"]')?.content){
     fetch(apiWebBase+'/api/web/publicaciones',{mode:'cors',cache:'no-store'})
       .then(r=>{if(!r.ok)throw Error('Cartelera no disponible');return r.json();})
       .then(({media,agenda})=>{
@@ -1089,6 +1091,7 @@
   }
 })();
 </script>
+<script defer src="./p7-publicaciones.js"></script>
 
 </body>
 </html>
