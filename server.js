@@ -289,6 +289,54 @@ app.get('/api/chat', async (req, res) => {
   } catch (err) { res.status(500).json({ error: 'Error' }); }
 });
 
+// ========== WEB PÚBLICA: Manager es la única fuente de agenda/media ==========
+// Usa exclusivamente llave PÚBLICA de Supabase; nunca service_role, nunca JWT de usuarios.
+// No muestra fichas privadas: consume tablas RLS con publicación aprobada.
+const MANAGER_SUPABASE_URL=(process.env.MANAGER_SUPABASE_URL||'').replace(/\/$/,'');
+const MANAGER_SUPABASE_PUBLIC_KEY=process.env.MANAGER_SUPABASE_PUBLIC_KEY||'';
+const MANAGER_PROJECT_URL='https://plihjyompjqkgymtsshb.supabase.co';
+const publicCache={value:null,expires:0};
+async function managerPublicRequest(path,options={}) {
+  const request=await fetch(MANAGER_SUPABASE_URL+path,{
+    ...options,
+    headers:{'apikey':MANAGER_SUPABASE_PUBLIC_KEY,...(MANAGER_SUPABASE_PUBLIC_KEY.startsWith('sb_publishable_')?{}:{'Authorization':'Bearer '+MANAGER_SUPABASE_PUBLIC_KEY}),...options.headers},
+    signal:AbortSignal.timeout(8500)
+  });
+  if(!request.ok)throw Error('El catálogo público no está disponible');
+  return await request.json();
+}
+app.get('/api/web/publicaciones',async(req,res)=>{
+  res.set('Access-Control-Allow-Origin','*');
+  res.set('Cache-Control','public,max-age=90');
+  if(!MANAGER_SUPABASE_PUBLIC_KEY||MANAGER_SUPABASE_URL!==MANAGER_PROJECT_URL){
+    return res.status(503).json({error:'La conexión pública con Manager aún no está configurada'});
+  }
+  try{
+    if(publicCache.value && publicCache.expires>Date.now())return res.json(publicCache.value);
+    const today=new Date().toISOString().slice(0,10);
+    const [media,events]=await Promise.all([
+      managerPublicRequest('/rest/v1/p7_web_media?select=kind,storage_path,title,alt,category,sort_order&published=eq.true&order=sort_order.asc,created_at.desc&limit=60'),
+      managerPublicRequest('/rest/v1/p7_web_agenda?select=title,place_public,date_public,time_public&published=eq.true&date_public=gte.'+today+'&order=date_public.asc,time_public.asc&limit=50')
+    ]);
+    // Signed URLs expire after five minutes. Do not publish a storage object publicly.
+    const enriched=await Promise.all(media.map(async(item)=>{
+      const parts=item.storage_path.split('/');
+      if(parts.length!==2||!['fotos','videos'].includes(parts[0])||!/^[-a-zA-Z0-9_.]+$/.test(parts[1]))return null;
+      try {
+        const signed=await managerPublicRequest('/storage/v1/object/sign/p7-web-media/'+encodeURIComponent(parts[0])+'/'+encodeURIComponent(parts[1]),{
+          method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({expiresIn:300})
+        });
+        const tokenized=signed.signedURL||signed.signedUrl;
+        if(typeof tokenized!=='string'||!tokenized.startsWith('/object/sign/'))return null;
+        return {kind:item.kind,title:item.title,alt:item.alt,category:item.category,url:MANAGER_SUPABASE_URL+'/storage/v1'+tokenized};
+      }catch{return null;}
+    }));
+    const result={media:enriched.filter(Boolean),agenda:events.map(e=>({titulo:e.title,lugar:e.place_public,fecha:e.date_public,hora:String(e.time_public||'').slice(0,5)}))};
+    publicCache.value=result;publicCache.expires=Date.now()+60_000;
+    res.json(result);
+  }catch(err){console.error('Web pública Manager:',err instanceof Error?err.message:'Error');res.status(503).json({error:'Contenido público temporalmente no disponible'});}
+});
+
 // ========== GALERÍA (MongoDB GridFS; edición solo admin) ==========
 function mediaError(res,e){
   if(!res.headersSent) res.status(e.status||500).json({error:e.status?e.message:'No se pudo procesar la fotografía'});
