@@ -343,7 +343,7 @@ function mediaError(res,e){
   else res.destroy(e);
   if(!e.status) console.error('Galería:',e);
 }
-app.get('/admin/fotos', (req,res) => res.redirect(302, 'https://proyecto7-gig-pal.lovable.app/publicaciones'));
+app.get('/admin/fotos', (req,res) => res.sendFile(archivoPublico('fotos-admin.html')));
 app.get('/api/galeria', async(req,res)=>{
   res.set('Access-Control-Allow-Origin','*');
   try{res.json(await media.list(true));}catch(e){mediaError(res,e);}
