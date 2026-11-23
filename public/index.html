@@ -641,6 +641,31 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MusicGroup","name":"Elías Reyes y su Proyecto 7","description":"Trío musical en Mérida, Yucatán para serenatas, bodas, eventos privados y presentaciones en vivo.","areaServed":{"@type":"AdministrativeArea","name":"Yucatán"},"genre":["Bolero","Trova","Música regional","Música popular","Covers acústicos"]}
 </script>
+
+<!-- Portada temporal: diciembre 2026. El diseño habitual permanece intacto para los demás meses. -->
+<style id="p7-portada-diciembre-css">
+  body.p7-navidad .hero {
+    background-image:linear-gradient(90deg,rgba(24,12,10,.93) 0%,rgba(24,12,10,.76) 28%,rgba(24,12,10,.28) 56%,rgba(24,12,10,.03) 100%),var(--p7-foto-diciembre);
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-color:#28120e;
+  }
+  body.p7-navidad .hero h1,body.p7-navidad .hero .hero-sub{color:#fffaf0;}
+  body.p7-navidad .hero h1 em,body.p7-navidad .hero .hero-dato b{color:#ffe09b;}
+  body.p7-navidad .hero .hero-eyebrow .eyebrow,body.p7-navidad .hero .hero-dato span,body.p7-navidad .hero p[style]{color:#fff4dd!important;}
+  body.p7-navidad .hero .boton-secundario{color:#fffaf0;border-color:#fffaf0;}
+  body.p7-navidad .hero .boton-secundario:hover{background:#fffaf0;color:#3d2400;}
+  @media(min-width:921px){body.p7-navidad .hero-marca{display:none;}}
+  @media(max-width:920px){
+    body.p7-navidad .hero{background:linear-gradient(160deg,#24130f,#442311);}
+    body.p7-navidad .hero-grid{grid-template-columns:1fr;gap:28px;}
+    body.p7-navidad .hero-marca{display:block;min-height:0;padding:0;overflow:hidden;background:#170e0a;border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,.24);}
+    body.p7-navidad .hero-marca::before,body.p7-navidad .hero-marca::after{display:none;}
+    body.p7-navidad .hero-marca img{display:block;width:100%;max-width:none;height:auto;aspect-ratio:1500/844;object-fit:contain;filter:none;}
+    body.p7-navidad .hero-datos{margin-top:25px;}
+  }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -1093,5 +1118,29 @@
 </script>
 <script defer src="./p7-publicaciones.js"></script>
 
+
+<script id="p7-portada-diciembre-js">
+(function(){
+  'use strict';
+  // Mes de diciembre según el calendario de Yucatán. Vista anticipada: ?previewPortadaDiciembre=1
+  var mes=new Intl.DateTimeFormat('en-US',{timeZone:'America/Merida',month:'numeric'}).format(new Date());
+  var preview=new URLSearchParams(location.search).get('previewPortadaDiciembre')==='1';
+  if(mes!=='12'&&!preview)return;
+  var rutas=['/portada-diciembre-2026.webp','./public/portada-diciembre-2026.webp'];
+  var imagen=new Image();
+  var intento=0;
+  imagen.alt='Fotografía navideña de Proyecto 7 con árbol iluminado';
+  imagen.decoding='async';
+  imagen.fetchPriority='high';
+  imagen.onload=function(){
+    document.documentElement.style.setProperty('--p7-foto-diciembre','url("'+imagen.src+'")');
+    var tarjeta=document.querySelector('.hero-marca');
+    if(tarjeta)tarjeta.replaceChildren(imagen);
+    document.body.classList.add('p7-navidad');
+  };
+  imagen.onerror=function(){if(++intento<rutas.length)imagen.src=rutas[intento];};
+  imagen.src=rutas[0];
+})();
+</script>
 </body>
 </html>
